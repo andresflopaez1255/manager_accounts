@@ -4,3 +4,9 @@ part of 'users_bloc.dart';
 abstract class UsersEvent {}
 
 class UsersListEvent extends UsersEvent {}
+
+class NewUserEvent extends UsersEvent {
+  final FormGroup data;
+
+  NewUserEvent({required this.data});
+}

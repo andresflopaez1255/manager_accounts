@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injector/injector.dart';
-import 'package:manager_accounts/data/bloc/account_bloc.dart';
-import 'package:manager_accounts/data/bloc/account_state.dart';
-import 'package:manager_accounts/data/bloc/bloc_event.dart';
+import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
+import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
+import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/presentation/screens/account_form/fom.dart';
@@ -19,15 +18,18 @@ class AccountForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String,AccountResponse>? arguments;
-   
-      arguments = ModalRoute.of(context)?.settings.arguments as Map<String,AccountResponse>? ;
-       
-       final title = arguments?['item'] != null ? AppBarTitle.updateAccount : AppBarTitle.newAccounts;
+    final Map<String, AccountResponse>? arguments;
+
+    arguments = ModalRoute.of(context)?.settings.arguments
+        as Map<String, AccountResponse>?;
+
+    final title = arguments?['item'] != null
+        ? AppBarTitle.updateAccount
+        : AppBarTitle.newAccounts;
 
     return Scaffold(
       backgroundColor: AppTheme.colors['background'],
-      appBar: AppBar(title:  Text(title)),
+      appBar: AppBar(title: Text(title)),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -42,37 +44,20 @@ class AccountForm extends StatelessWidget {
   }
 }
 
-class FormInputsAccount extends StatefulWidget {
-  late final AccountBloc bloc;
-  late final UsersBloc userBloc;
-  FormInputsAccount({
-    Key? key,
+class FormInputsAccount extends StatelessWidget {
+  const FormInputsAccount({
+    super.key,
     required this.arguments,
-  }) : super(key: key) {
-    bloc = Injector.appInstance.get<AccountBloc>();
-    userBloc = Injector.appInstance.get<UsersBloc>();
-  }
+  });
 
-  final Map<String,AccountResponse>? arguments;
-
-  @override
-  State<FormInputsAccount> createState() => _FormInputsAccountState();
-}
-
-class _FormInputsAccountState extends State<FormInputsAccount> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.userBloc.add(UsersListEvent());
-    });
-  }
+  final Map<String, AccountResponse>? arguments;
 
   @override
   Widget build(BuildContext context) {
-    final item = widget.arguments?['item'];
+    final item = arguments?['item'];
+    final bloc = context.read<AccountBloc>();
     return BlocConsumer<AccountBloc, AccountState>(
-        bloc: widget.bloc,
+        bloc: bloc,
         listener: (context, state) {
           if (state is LoadingState && state.load) {
             showLoading(context);
@@ -96,13 +81,13 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
                       onChanged: (String text) {},
                     ),
                     BlocBuilder<UsersBloc, UsersState>(
-                      bloc: widget.userBloc,
+                      bloc: context.read<UsersBloc>(),
                       builder: (context, state) {
                         if (state is ListUsersData) {
                           final users = state.list;
                           return SelectInput<int>(
-                            defaultValue: item?.idUser,
-                            form: form,
+                              defaultValue: item?.idUser,
+                              form: form,
                               padding: const EdgeInsets.only(top: 23),
                               items: [
                                 const DropdownMenuItem(
@@ -134,7 +119,7 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
                     ),
                     InputBase(
                       defaultValue: item?.nameProfile,
-                       form: form,
+                      form: form,
                       padding: const EdgeInsets.only(top: 23),
                       formControl: "account_profile",
                       label: 'Perfil de cuenta',
@@ -153,13 +138,13 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
                       ),
                     ),
                     Button(
-                        title: item != null ? 'Actualizar': 'Guardar',
+                        title: item != null ? 'Actualizar' : 'Guardar',
                         onTap: () {
-                          if(item != null){
-                            widget.bloc.add(UpdateAccountEvent(form, item.id));
+                          if (item != null) {
+                            bloc.add(UpdateAccountEvent(form, item.id));
                             return;
                           }
-                          widget.bloc.add(NewAccountEvent(form));
+                          bloc.add(NewAccountEvent(form));
                         }),
                     const SizedBox(
                       height: 24,

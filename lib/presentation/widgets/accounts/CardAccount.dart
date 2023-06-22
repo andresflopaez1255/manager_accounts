@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injector/injector.dart';
-import 'package:manager_accounts/data/bloc/account_bloc.dart';
-import 'package:manager_accounts/data/bloc/account_state.dart';
-import 'package:manager_accounts/data/bloc/bloc_event.dart';
+import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
+import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
+import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/presentation/widgets/accounts/accounts.dart';
@@ -13,19 +12,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardAccount extends StatelessWidget {
   final AccountResponse item;
-  late final AccountBloc bloc;
   // ignore: prefer_const_constructors_in_immutables
   CardAccount({
     Key? key,
     required this.item,
-  }) : super(key: key) {
-    bloc = Injector.appInstance.get<AccountBloc>();
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
-      bloc: bloc,
       builder: (context, state) {
         return Card(
             elevation: 3,
@@ -86,7 +81,9 @@ class CardAccount extends StatelessWidget {
                               CommonModalController.deleteDialog(
                                   context: context,
                                   deletedTap: () {
-                                    bloc.add(DeleteAccountEvent(item.id));
+                                    context
+                                        .read<AccountBloc>()
+                                        .add(DeleteAccountEvent(item.id));
                                     Navigator.pop(context);
                                   },
                                   message:

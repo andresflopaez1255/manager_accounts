@@ -5,8 +5,9 @@ abstract class UsersState {}
 
 class UsersInitial extends UsersState {}
 
-
 class ListUsersData extends UsersState {
-  final  List<UsersResponse> list;
+  final List<UsersResponse> list;
   ListUsersData(this.list);
 }
+
+class UsersLoadingState extends UsersState {}

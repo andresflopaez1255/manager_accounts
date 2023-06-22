@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -16,11 +17,11 @@ class HttpClient {
     return null;
   }
 
-   Future<Response<dynamic>?> postApiCall(url,data) async {
+  Future<Response<dynamic>?> postApiCall(url, data) async {
     try {
-      var response = await dio.post(url, options: Options(
-        contentType: "application/json"
-      ), data: json.encode(data));
+      var response = await dio.post(url,
+          options: Options(contentType: "application/json"),
+          data: json.encode(data));
       return response;
     } catch (e) {
       debugPrint(e.toString());

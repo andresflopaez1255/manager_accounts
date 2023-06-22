@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injector/injector.dart' hide Builder;
-import 'package:manager_accounts/data/bloc/account_bloc.dart';
-import 'package:manager_accounts/data/bloc/account_state.dart';
-import 'package:skeleton_loader/skeleton_loader.dart';
 
 import '../../utils/config/config.dart';
 import '../widgets/accounts/accounts.dart';
@@ -16,7 +11,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.colors['background'],
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(

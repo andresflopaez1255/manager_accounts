@@ -12,7 +12,7 @@ void showLoading(BuildContext context) {
       return const OverlayLoadingWidget();
     },
   );
-  Overlay.of(context)?.insert(overlayEntry!);
+  Overlay.of(context).insert(overlayEntry!);
 }
 
 void hideLoading(BuildContext context) {
@@ -45,8 +45,9 @@ class OverlayLoadingWidget extends StatelessWidget {
                 child: Text(
                   "Por favor espere, estamos ejecutando su acción",
                   textAlign: TextAlign.center,
-                  style: AppTheme.textStyle['subtitle1']
-                      ?.copyWith(color: AppTheme.colors['primary'], fontWeight: FontWeight.bold),
+                  style: AppTheme.textStyle['subtitle1']?.copyWith(
+                      color: AppTheme.colors['primary'],
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             )
