@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,7 @@ class _InputDatePickerState extends State<InputDatePicker> {
         if (pickedDate != null) {
           print(
               pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-          String formattedDate = pickedDate.toString();
+          String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
           print(
               formattedDate); //formatted date output using intl package =>  2021-03-16
           setState(() {

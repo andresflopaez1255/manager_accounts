@@ -7,10 +7,10 @@ import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/presentation/screens/account_form/fom.dart';
-import 'package:manager_accounts/presentation/widgets/commons/inputs/inputDatePicker.dart';
 import 'package:manager_accounts/presentation/widgets/modals/commons/modal_loading.dart';
 import 'package:manager_accounts/utils/config/constants.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:manager_accounts/utils/date_format_string.dart';
 
 import '../../../utils/config/AppTheme.dart';
 import '../../widgets/commons/commons.dart';
@@ -56,6 +56,8 @@ class FormInputsAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final item = arguments?['item'];
+
+    final date = DateTime.parse(formatDateString(item?.expirationDate));
     final bloc = context.read<AccountBloc>();
     return BlocConsumer<AccountBloc, AccountState>(
         bloc: bloc,
@@ -110,7 +112,12 @@ class FormInputsAccount extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 23.h),
-                      child: const InputDatePicker(),
+                      child: InputDateTime(
+                        defaultValue: date,
+                        form: form,
+                        formControlName: 'expiration_date',
+                        label: 'Fecha de renovacion',
+                      ),
                     ),
                     InputBase(
                       defaultValue: item?.codeProfile.toString(),

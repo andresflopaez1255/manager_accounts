@@ -272,6 +272,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  reactive_date_time_picker:
+    dependency: "direct main"
+    description:
+      name: reactive_date_time_picker
+      sha256: "6f861ef34a2389ae37e6df26e45c54dae33541717aad12428b8c94d0770ad847"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.1"
   reactive_forms:
     dependency: "direct main"
     description:

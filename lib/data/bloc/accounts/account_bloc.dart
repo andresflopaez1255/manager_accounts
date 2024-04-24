@@ -30,7 +30,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     emit(LoadingState(true));
     try {
       success = await accountRepository.newAccount(event.data);
-      debugPrint(success.toString());
+      debugPrint(event.data.toString());
       emit(LoadingState(false));
     } catch (error) {
       debugPrint("error: $error");

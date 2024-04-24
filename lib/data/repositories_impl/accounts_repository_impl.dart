@@ -3,6 +3,7 @@ import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart
 import 'package:manager_accounts/data/models/basic_response.dart';
 import 'package:manager_accounts/domain/repository/accounts_repository.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:intl/intl.dart';
 
 class AccountsRepositoryImpl implements AccountsRepository {
   final HttpClient httpClient;
@@ -29,7 +30,8 @@ class AccountsRepositoryImpl implements AccountsRepository {
       "name_profile": form.control('account_profile').value,
       "code_profile": double.parse(form.control('pin_account').value),
       "id_category": 1,
-      "expiration_date": "04/11/2022"
+      "expiration_date":
+          DateFormat('dd/MM/yyyy').format(form.control('expiration_date').value)
     };
     bool success = false;
     final response = await httpClient.postApiCall('/new_account', data);

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manager_accounts/utils/config/config.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:manager_accounts/utils/config/AppTheme.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class InputBase extends StatefulWidget {
   final String formControl;
