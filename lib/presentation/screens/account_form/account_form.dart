@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
 import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/presentation/screens/account_form/fom.dart';
+import 'package:manager_accounts/presentation/widgets/commons/inputs/inputDatePicker.dart';
 import 'package:manager_accounts/presentation/widgets/modals/commons/modal_loading.dart';
 import 'package:manager_accounts/utils/config/constants.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -28,7 +30,6 @@ class AccountForm extends StatelessWidget {
         : AppBarTitle.newAccounts;
 
     return Scaffold(
-      backgroundColor: AppTheme.colors['background'],
       appBar: AppBar(title: Text(title)),
       body: SingleChildScrollView(
         child: Column(
@@ -75,7 +76,7 @@ class FormInputsAccount extends StatelessWidget {
                     InputBase(
                       form: form,
                       defaultValue: item?.emailAccount,
-                      padding: const EdgeInsets.only(top: 23),
+                      padding: EdgeInsets.only(top: 23.h),
                       formControl: "email_account",
                       label: 'Correo de cuenta',
                       onChanged: (String text) {},
@@ -88,7 +89,6 @@ class FormInputsAccount extends StatelessWidget {
                           return SelectInput<int>(
                               defaultValue: item?.idUser,
                               form: form,
-                              padding: const EdgeInsets.only(top: 23),
                               items: [
                                 const DropdownMenuItem(
                                     value: 0,
@@ -108,10 +108,14 @@ class FormInputsAccount extends StatelessWidget {
                         return const SizedBox.shrink();
                       },
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 23.h),
+                      child: const InputDatePicker(),
+                    ),
                     InputBase(
                       defaultValue: item?.codeProfile.toString(),
                       form: form,
-                      padding: const EdgeInsets.only(top: 23),
+                      padding: EdgeInsets.only(top: 23.h),
                       formControl: "pin_account",
                       label: 'Pin de cuenta',
                       keyboardType: TextInputType.number,
@@ -120,7 +124,7 @@ class FormInputsAccount extends StatelessWidget {
                     InputBase(
                       defaultValue: item?.nameProfile,
                       form: form,
-                      padding: const EdgeInsets.only(top: 23),
+                      padding: EdgeInsets.only(top: 8.h),
                       formControl: "account_profile",
                       label: 'Perfil de cuenta',
                       keyboardType: TextInputType.number,
@@ -131,7 +135,7 @@ class FormInputsAccount extends StatelessWidget {
                       child: InputPasswordBase(
                         defaultValue: item?.passAccount,
                         form: form,
-                        padding: const EdgeInsets.only(top: 23),
+                        padding: EdgeInsets.only(top: 8.h),
                         formControl: "password",
                         label: 'Contraseña',
                         onChanged: (String text) {},

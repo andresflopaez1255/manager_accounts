@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/users/userData.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/presentation/widgets/accounts/accounts.dart';
@@ -23,34 +25,34 @@ class CardUserList extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ColumnText(
-                  title: 'Nombre cliente',
-                  text: item.nameUser,
-                ),
-                ColumnText(
-                  title: 'Celular',
-                  text: item.cellphoneUser,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ColumnText(
-                  title: 'Plataformas',
-                  text: item.nameUser,
-                ),
-              ],
-            ),
-          ]),
-          SizedBox(height: 12.h),
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ColumnText(
+                    title: 'Nombre cliente',
+                    text: item.nameUser,
+                  ),
+                  ColumnText(
+                    title: 'Celular',
+                    text: item.cellphoneUser,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ColumnText(
+                    title: 'Plataformas',
+                    text: item.nameUser,
+                  ),
+                ],
+              ),
+            ]),
+            SizedBox(height: 12.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -60,7 +62,13 @@ class CardUserList extends StatelessWidget {
                   onPress: () {
                     CommonModalController.deleteDialog(
                         context: context,
-                        deletedTap: () {},
+                        deletedTap: () {
+                          context
+                              .read<UsersBloc>()
+                              .add(DeleteUsersEvent(item.id));
+
+                          Navigator.pop(context);
+                        },
                         message:
                             'Si elimina este usuario no se podrá volver a recuperar su información');
                   },
@@ -70,7 +78,9 @@ class CardUserList extends StatelessWidget {
                   text: 'Editar',
                   icon: Icons.edit,
                   onPress: () {
-                    UsersModalController.dialogUser(context);
+                    Navigator.pushNamed(context, '/userForm', arguments: {
+                      'item': item,
+                    });
                   },
                   backgroundColor:
                       AppTheme.colors['secondaryColorButton'] ?? Colors.blue,

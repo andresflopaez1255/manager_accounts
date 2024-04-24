@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 30, left: 8, right: 8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              ListAccounts()
+              const ListAccounts()
             ],
           ),
         ),

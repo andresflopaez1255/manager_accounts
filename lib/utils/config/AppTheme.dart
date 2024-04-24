@@ -60,19 +60,23 @@ class AppTheme {
   };
 
   static final appTheme = ThemeData(
+    useMaterial3: false,
+    fontFamily: 'Montaga',
     brightness: Brightness.light,
     primaryColor: colors['primary'],
+    colorScheme: const ColorScheme.light(primaryContainer: Colors.black),
     appBarTheme: AppBarTheme(backgroundColor: colors['primary']),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-        iconColor: MaterialStateProperty.all<Color>(Colors.black),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        iconColor: MaterialStateProperty.all<Color>(Colors.white),
         backgroundColor: MaterialStateProperty.all<Color>(
             const Color.fromARGB(70, 223, 223, 233)),
       ),
     ),
   );
   static final appThemeDark = ThemeData(
+    useMaterial3: false,
     brightness: Brightness.dark,
     primaryColor: Colors.blueGrey,
     scaffoldBackgroundColor: Colors.grey[900],

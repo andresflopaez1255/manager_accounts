@@ -14,11 +14,13 @@ class ButtonAdd extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.add,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             Text(
               'Agregar',
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           ],
         ));

@@ -8,9 +8,9 @@ import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/data_sources/local_datasouce/httpClient.dart';
 import 'package:manager_accounts/data/repositories_impl/accounts_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/users_repository_impl.dart';
-import 'package:manager_accounts/utils/config/AppTheme.dart';
-import 'package:manager_accounts/presentation/screens/dashboard_screen.dart';
 import 'package:manager_accounts/presentation/screens/screens.dart';
+import 'package:manager_accounts/utils/config/AppTheme.dart';
+import 'package:manager_accounts/utils/config/routes.dart';
 
 void main() {
   runApp(const AppState());
@@ -66,14 +66,7 @@ class MyApp extends StatelessWidget {
                         theme: state.theme,
                         home: const LoginScreen(),
                         initialRoute: '/splash',
-                        routes: {
-                          '/splash': (_) => const SplashScreen(),
-                          '/signIn': (_) => const LoginScreen(),
-                          '/signUp': (_) => SignUpScreen(),
-                          '/home': (_) => const DashboardScreen(),
-                          '/settings': ((context) => const SettingsScreen()),
-                          '/accountForm': ((context) => const AccountForm())
-                        },
+                        routes: routes,
                       ));
             }
             return ScreenUtilInit(
@@ -85,14 +78,7 @@ class MyApp extends StatelessWidget {
                       theme: AppTheme.appTheme,
                       home: const LoginScreen(),
                       initialRoute: '/splash',
-                      routes: {
-                        '/splash': (_) => const SplashScreen(),
-                        '/signIn': (_) => const LoginScreen(),
-                        '/signUp': (_) => SignUpScreen(),
-                        '/home': (_) => const DashboardScreen(),
-                        '/settings': ((context) => const SettingsScreen()),
-                        '/accountForm': ((context) => const AccountForm())
-                      },
+                      routes: routes,
                     ));
           },
         );

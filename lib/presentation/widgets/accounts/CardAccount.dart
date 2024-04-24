@@ -27,7 +27,7 @@ class CardAccount extends StatelessWidget {
             child: ExpansionTile(
               tilePadding: const EdgeInsets.symmetric(horizontal: 12),
               iconColor: Colors.black,
-              textColor: Colors.black,
+              textColor: Colors.white,
               title: HeaderTitle(item: item),
               children: [
                 Padding(
@@ -142,46 +142,5 @@ class HeaderTitle extends StatelessWidget {
         ),
       ],
     );
-
-    /*  Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              'Cuenta:',
-              style: AppTheme.textStyle['bodyText2'],
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              item.emailAccount,
-              style: AppTheme.textStyle['bodyText1']
-                  ?.copyWith(fontSize: 12),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ColumnText(
-              title: 'Fecha de vencimiento:',
-              text: item.expirationDate,
-            ),
-            ColumnText(
-              title: 'Nombre cliente:',
-              text: item.nameUser,
-              
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-      ],
-    ); */
   }
 }

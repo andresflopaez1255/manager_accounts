@@ -10,9 +10,15 @@ class UsersRespositoryImpl extends UsersRepository {
   UsersRespositoryImpl({required this.httpClient});
   @override
   Future<List<UsersResponse>> getUsers() async {
-    final response = await httpClient.getApiCall('/users');
-    final list = Usersdto.fromJson(response.toString());
-    return list.data;
+    List<UsersResponse> usersList = [];
+    final response = await httpClient.getApiCall(url: '/users');
+    if (response?.statusCode == 200) {
+      final responseJson = Usersdto.fromJson(response.toString());
+      usersList = responseJson.data;
+      return usersList;
+    }
+
+    return usersList;
   }
 
   @override
@@ -24,6 +30,19 @@ class UsersRespositoryImpl extends UsersRepository {
     };
     bool success = false;
     final response = await httpClient.postApiCall('/new_user', data);
+
+    if (response?.statusCode == 200) {
+      success = true;
+    }
+
+    return success;
+  }
+
+  @override
+  Future<bool> deletedUser(int id) async {
+    bool success = false;
+    final response = await httpClient
+        .deleteApiCall(url: '/delete_user', params: {"id": "$id"});
 
     if (response?.statusCode == 200) {
       success = true;

@@ -36,10 +36,16 @@ class ButtonWithIcon extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon),
+            Icon(
+              icon,
+              color: Colors.white,
+            ),
             Padding(
               padding: const EdgeInsets.all(2.0),
-              child: Text(text, style: AppTheme.textStyle['button']),
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.white),
+              ),
             )
           ],
         ),

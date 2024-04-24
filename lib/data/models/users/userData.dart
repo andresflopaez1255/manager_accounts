@@ -22,7 +22,8 @@ class Usersdto {
   factory Usersdto.fromMap(Map<String, dynamic> json) => Usersdto(
         message: json["message"],
         status: json["status"],
-        data: List<UsersResponse>.from(json["data"].map((x) => UsersResponse.fromMap(x))),
+        data: List<UsersResponse>.from(
+            json["data"].map((x) => UsersResponse.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,15 +38,16 @@ class UsersResponse {
     required this.id,
     required this.nameUser,
     required this.cellphoneUser,
-    required this.emailUser,
+    this.emailUser,
   });
 
   final int id;
   final String nameUser;
   final String cellphoneUser;
-  final String emailUser;
+  final String? emailUser;
 
-  factory UsersResponse.fromJson(String str) => UsersResponse.fromMap(json.decode(str));
+  factory UsersResponse.fromJson(String str) =>
+      UsersResponse.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 

@@ -53,28 +53,22 @@ class _SelectInputState<T> extends State<SelectInput<T>> {
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Color(0xffABABAB),
                 )),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
                   width: 2,
-                  color: Color(0xffABABAB),
                 )),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
                   width: 1,
-                  color: Color(0xffABABAB),
                 )),
             label: Text(
               widget.label,
             ),
             filled: true,
-            fillColor: Colors.white,
-            labelStyle: const TextStyle(
-              color: Color(0xff656565),
-            ),
+            labelStyle: Theme.of(context).textTheme.labelLarge,
           ),
         ),
       ),

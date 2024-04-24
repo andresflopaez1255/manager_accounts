@@ -16,6 +16,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersBloc({required this.repository}) : super(UsersInitial()) {
     on<UsersListEvent>(getUsers);
     on<NewUserEvent>(_newUseer);
+    on<DeleteUsersEvent>(_deleteUsers);
   }
 
   getUsers(UsersListEvent event, Emitter<UsersState> emit) async {
@@ -28,11 +29,21 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     emit(UsersLoadingState());
     try {
       success = await repository.newUser(event.data);
-      emit(UsersLoadingState());
+      emit(SucessCreateUser());
     } catch (error) {
       success = false;
-      emit(UsersLoadingState());
+      emit(ErrorCreateUser());
     }
     return success;
+  }
+
+  FutureOr<void> _deleteUsers(
+      DeleteUsersEvent event, Emitter<UsersState> emit) async {
+    try {
+      final response = await repository.deletedUser(event.id);
+      if (response == true) {}
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

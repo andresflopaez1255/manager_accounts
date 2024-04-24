@@ -11,3 +11,7 @@ class ListUsersData extends UsersState {
 }
 
 class UsersLoadingState extends UsersState {}
+
+class SucessCreateUser extends UsersState {}
+
+class ErrorCreateUser extends UsersState {}

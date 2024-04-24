@@ -10,3 +10,8 @@ class NewUserEvent extends UsersEvent {
 
   NewUserEvent({required this.data});
 }
+
+class DeleteUsersEvent extends UsersEvent {
+  final int id;
+  DeleteUsersEvent(this.id);
+}

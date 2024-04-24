@@ -25,16 +25,16 @@ class InputPasswordBase extends StatefulWidget {
 
 class _InputPasswordBaseState extends State<InputPasswordBase> {
   var _passwordHide = true;
-@override
+  @override
   void initState() {
     super.initState();
-     if (widget.defaultValue != null && widget.form != null) {
+    if (widget.defaultValue != null && widget.form != null) {
       widget.form?.control(widget.formControl).value = widget.defaultValue;
     }
   }
+
   @override
   Widget build(BuildContext context) {
-   
     return Padding(
       padding: widget.padding ?? const EdgeInsets.only(top: 8.0),
       child: SizedBox(
@@ -43,39 +43,36 @@ class _InputPasswordBaseState extends State<InputPasswordBase> {
           obscureText: _passwordHide,
           formControlName: widget.formControl,
           decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    color: Color(0xffABABAB),
-                  )),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    color: Color(0xffABABAB),
-                  )),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(
-                    width: 1,
-                    color: Color(0xffABABAB),
-                  )),
-              label: Text(widget.label),
-              filled: true,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  color: const Color(0xffABABAB),
-                  _passwordHide ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _passwordHide = !_passwordHide;
-                  });
-                },
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: const BorderSide(
+                  width: 1,
+                )),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: const BorderSide(
+                  width: 2,
+                )),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: const BorderSide(
+                  width: 1,
+                )),
+            label: Text(widget.label),
+            filled: true,
+            suffixIcon: IconButton(
+              icon: Icon(
+                color: const Color(0xffABABAB),
+                _passwordHide ? Icons.visibility : Icons.visibility_off,
               ),
-              fillColor: Colors.white,
-              labelStyle: const TextStyle(color: Color(0xff656565))),
+              onPressed: () {
+                setState(() {
+                  _passwordHide = !_passwordHide;
+                });
+              },
+            ),
+            labelStyle: Theme.of(context).textTheme.labelLarge,
+          ),
         ),
       ),
     );

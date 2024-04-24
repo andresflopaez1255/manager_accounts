@@ -67,6 +67,8 @@ class UserModalContent extends StatelessWidget {
                           context
                               .read<UsersBloc>()
                               .add(NewUserEvent(data: form));
+                          context.read<UsersBloc>().add(UsersListEvent());
+                          Navigator.pop(context);
                         })),
                   )
                 ],
