@@ -31,7 +31,7 @@ class AccountsRepositoryImpl implements AccountsRepository {
       "code_profile": double.parse(form.control('pin_account').value),
       "id_category": 1,
       "expiration_date":
-          DateFormat('dd/MM/yyyy').format(form.control('expiration_date').value)
+          DateFormat('MM/dd/yyyy').format(form.control('expiration_date').value)
     };
     bool success = false;
     final response = await httpClient.postApiCall('/new_account', data);

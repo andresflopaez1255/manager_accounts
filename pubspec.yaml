@@ -41,6 +41,9 @@ dependencies:
   flutter_screenutil: ^5.6.0
   shared_preferences: ^2.1.2
   reactive_date_time_picker: ^0.6.1
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.10
+  flutter_tools: ^0.0.1-beta
  
 
 dev_dependencies:

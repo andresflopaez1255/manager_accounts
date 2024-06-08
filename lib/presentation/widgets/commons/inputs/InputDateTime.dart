@@ -41,7 +41,7 @@ class _InputDateTimeState extends State<InputDateTime> {
       padding: widget.padding ?? const EdgeInsets.only(top: 8),
       child: ReactiveDateTimePicker(
         formControlName: widget.formControlName,
-        dateFormat: DateFormat("dd/MM/yyyy"),
+        dateFormat: DateFormat("MM/dd/yyyy"),
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),

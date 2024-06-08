@@ -8,16 +8,34 @@ import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/data_sources/local_datasouce/httpClient.dart';
 import 'package:manager_accounts/data/repositories_impl/accounts_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/users_repository_impl.dart';
+import 'package:manager_accounts/domain/repository/firebase_notification_repository.dart';
 import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/utils/config/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const AppState());
 }
 
-class AppState extends StatelessWidget {
+class AppState extends StatefulWidget {
   const AppState({Key? key}) : super(key: key);
+
+  @override
+  State<AppState> createState() => _AppStateState();
+}
+
+class _AppStateState extends State<AppState> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseNotificationRepository().initNotification();
+  }
 
   @override
   Widget build(BuildContext context) {

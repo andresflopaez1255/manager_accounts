@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "274290548961",
+    "project_id": "accounts-manager-24563",
+    "storage_bucket": "accounts-manager-24563.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274290548961:android:952d333f7f52cd13b217a0",
+        "android_client_info": {
+          "package_name": "com.hefestsoft.manager_accounts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn8EvuLSt6eVIPsjvEZfW5kj_RrUt0q0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
