@@ -22,96 +22,106 @@ class CardAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        return Card(
-            elevation: 3,
-            child: ExpansionTile(
-              tilePadding: const EdgeInsets.symmetric(horizontal: 12),
-              iconColor: Colors.black,
-              textColor: Colors.white,
-              title: HeaderTitle(item: item),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: Row(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          child: Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              child: ExpansionTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                showTrailingIcon: false,
+                tilePadding: const EdgeInsets.symmetric(horizontal: 12),
+                iconColor: Colors.black,
+                textColor: Colors.black,
+                title: HeaderTitle(item: item),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ColumnText(
+                                title: 'Contraseña',
+                                text: item.passAccount.replaceRange(
+                                    2, item.passAccount.length, '*****'),
+                              ),
+                              ColumnText(
+                                title: 'Perfil cuenta',
+                                text: item.nameProfile,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ColumnText(
-                              title: 'Contraseña',
-                              text: item.passAccount.replaceRange(
-                                  2, item.passAccount.length, '*****'),
+                              title: 'Fecha de vencimiento:',
+                              text: item.expirationDate,
                             ),
                             ColumnText(
-                              title: 'Perfil cuenta',
-                              text: item.nameProfile,
+                              title: 'Pin cuenta',
+                              text: item.codeProfile.toString(),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ColumnText(
-                            title: 'Fecha de vencimiento:',
-                            text: item.expirationDate,
-                          ),
-                          ColumnText(
-                            title: 'Pin cuenta',
-                            text: item.codeProfile.toString(),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 19,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonWithIcon(
-                            text: 'Eliminar',
-                            icon: Icons.delete_forever,
-                            onPress: () {
-                              CommonModalController.deleteDialog(
-                                  context: context,
-                                  deletedTap: () {
-                                    context
-                                        .read<AccountBloc>()
-                                        .add(DeleteAccountEvent(item.id));
-                                    Navigator.pop(context);
-                                  },
-                                  message:
-                                      'Si elimina esta cuenta no se podrá volver a recuperar su información');
-                            },
-                            backgroundColor:
-                                AppTheme.colors['primary'] ?? Colors.blue,
-                          ),
-                          ButtonWithIcon(
-                            text: 'Editar',
-                            icon: Icons.edit,
-                            onPress: () {
-                              Navigator.pushNamed(context, '/accountForm',
-                                  arguments: {
-                                    'item': item,
-                                  });
-                            },
-                            backgroundColor:
-                                AppTheme.colors['secondaryColorButton'] ??
-                                    Colors.blue,
-                          )
-                        ],
-                      )
-                    ],
+                        const SizedBox(
+                          height: 19,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ButtonWithIcon(
+                              text: 'Eliminar',
+                              icon: Icons.delete_forever,
+                              onPress: () {
+                                CommonModalController.deleteDialog(
+                                    context: context,
+                                    deletedTap: () {
+                                      context
+                                          .read<AccountBloc>()
+                                          .add(DeleteAccountEvent(item.id));
+                                      Navigator.pop(context);
+                                    },
+                                    message:
+                                        'Si elimina esta cuenta no se podrá volver a recuperar su información');
+                              },
+                              backgroundColor:
+                                  AppTheme.colors['primary'] ?? Colors.blue,
+                            ),
+                            ButtonWithIcon(
+                              text: 'Editar',
+                              icon: Icons.edit,
+                              onPress: () {
+                                Navigator.pushNamed(context, '/accountForm',
+                                    arguments: {
+                                      'item': item,
+                                    });
+                              },
+                              backgroundColor:
+                                  AppTheme.colors['secondaryColorButton'] ??
+                                      Colors.blue,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ));
+                ],
+              )),
+        );
       },
     );
   }

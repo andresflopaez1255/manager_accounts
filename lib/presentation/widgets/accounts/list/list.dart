@@ -9,7 +9,7 @@ import 'package:manager_accounts/presentation/widgets/accounts/list/list_skeleto
 import 'package:manager_accounts/utils/config/config.dart';
 
 class ListAccounts extends StatelessWidget {
-  const ListAccounts({super.key});
+  const ListAccounts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ListAccounts extends StatelessWidget {
                   return CardAccount(item: state.list[index]);
                 });
       }
-      return const ListSkeleton();
+      return  const ListSkeleton(enabled: true);
     });
   }
 }

@@ -35,8 +35,9 @@ class UserScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 5, bottom: 10),
                         child: Text(
+                            'Usuarios',
                           textAlign: TextAlign.left,
-                          'Usuarios',
+                        
                           style: AppTheme.textStyle['subtitle1'],
                         ),
                       ),
@@ -72,7 +73,7 @@ class ListUsers extends StatelessWidget {
       builder: (context, state) {
         if (state is ListUsersData) {
           return state.list.isEmpty
-              ? const ListSkeleton()
+              ?  ListSkeleton(enabled: state.list.isEmpty)
               : ListView.builder(
                   padding: const EdgeInsets.only(top: 12),
                   physics: const NeverScrollableScrollPhysics(),
@@ -84,7 +85,7 @@ class ListUsers extends StatelessWidget {
                     );
                   }));
         }
-        return const ListSkeleton();
+        return const ListSkeleton(enabled: true,);
       },
     );
   }

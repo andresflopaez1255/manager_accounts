@@ -41,7 +41,7 @@ class UsersResponse {
     this.emailUser,
   });
 
-  final int id;
+  final String id;
   final String nameUser;
   final String cellphoneUser;
   final String? emailUser;

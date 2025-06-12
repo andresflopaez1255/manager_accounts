@@ -43,27 +43,14 @@ class _InputPasswordBaseState extends State<InputPasswordBase> {
           obscureText: _passwordHide,
           formControlName: widget.formControl,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 1,
-                )),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 2,
-                )),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 1,
-                )),
+            
             label: Text(widget.label),
             filled: true,
             suffixIcon: IconButton(
               icon: Icon(
-                color: const Color(0xffABABAB),
                 _passwordHide ? Icons.visibility : Icons.visibility_off,
+                color: const Color(0xffABABAB),
+                
               ),
               onPressed: () {
                 setState(() {

@@ -6,7 +6,7 @@ import '../widgets/commons/commons.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,16 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 5, bottom: 10),
                     child: Text(
-                      textAlign: TextAlign.left,
                       'Cuentas registradas',
+                      textAlign: TextAlign.left,
                       style: AppTheme.textStyle['subtitle1'],
                     ),
                   ),
-                  ButtonAdd(
-                    onPressed: (() =>
-                        Navigator.pushNamed(context, '/accountForm')),
-                  )
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/accountForm');
+                      },
+                      icon: const Icon(Icons.add_circle, size: 25,)),
                 ],
               ),
               const ListAccounts()
@@ -46,4 +47,3 @@ class HomeScreen extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-

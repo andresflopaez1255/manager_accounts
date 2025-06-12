@@ -8,6 +8,6 @@ import 'package:reactive_forms/reactive_forms.dart';
 abstract class AccountsRepository {
   FutureOr<List<AccountResponse>?> getAccounts();
   Future<bool> newAccount(FormGroup form);
-  Future<bool> editAccount(FormGroup form,int id);
-  Future<BasicResponse?> deleteAccount(int idAccount);
+  Future<bool> editAccount(FormGroup form,String id);
+  Future<BasicResponse?> deleteAccount(String idAccount);
 }

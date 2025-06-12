@@ -3,11 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
-import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
-import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/data/models/users/userData.dart';
-import 'package:manager_accounts/presentation/screens/account_form/fom.dart';
 import 'package:manager_accounts/presentation/widgets/modals/commons/modal_loading.dart';
 import 'package:manager_accounts/presentation/widgets/users/form_edit/form_fields.dart';
 import 'package:manager_accounts/utils/config/constants.dart';
@@ -17,7 +14,7 @@ import '../../../utils/config/AppTheme.dart';
 import '../../widgets/commons/commons.dart';
 
 class UserForm extends StatelessWidget {
-  const UserForm({super.key});
+  const UserForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +44,10 @@ class UserForm extends StatelessWidget {
 }
 
 class FormInputsUser extends StatelessWidget {
-  const FormInputsUser({
-    super.key,
+  const FormInputsUser({Key? key, 
+    
     required this.arguments,
-  });
+  }) : super(key: key);
 
   final Map<String, UsersResponse>? arguments;
 

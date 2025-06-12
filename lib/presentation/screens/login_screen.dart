@@ -94,8 +94,9 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.pushNamed(context, '/signUp');
                               },
                               child: Text(
+                                 '¿No tienes usuario? unete ',
                                 textAlign: TextAlign.center,
-                                '¿No tienes usuario? unete ',
+                               
                                 style: AppTheme.textStyle['subtitle2']
                                     ?.copyWith(
                                         fontSize: 16,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/utils/config/config.dart';
 
 class Button extends StatelessWidget {
@@ -29,16 +30,16 @@ class Button extends StatelessWidget {
         child: ElevatedButton(
             onPressed: onTap,
             style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               )),
               backgroundColor:
-                  MaterialStateProperty.all<Color>(backgroundButton!),
+                  WidgetStateProperty.all<Color>(backgroundButton!),
             ),
             child: Text(title,
                 style: textStyle ??
                     AppTheme.textStyle['subtitle2']
-                        ?.copyWith(color: Colors.white))));
+                        ?.copyWith(color: Colors.white, fontSize: 14.sp))));
   }
 }

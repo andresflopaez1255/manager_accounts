@@ -7,7 +7,7 @@ class SelectInput<T> extends StatefulWidget {
   final Function(Object) onChanged;
   final EdgeInsetsGeometry? padding;
   final String formControl;
-  final int? defaultValue;
+  final String? defaultValue;
   final FormGroup? form;
   const SelectInput({
     Key? key,
@@ -63,6 +63,7 @@ class _SelectInputState<T> extends State<SelectInput<T>> {
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
                   width: 1,
+                  color: Colors.white10,
                 )),
             label: Text(
               widget.label,

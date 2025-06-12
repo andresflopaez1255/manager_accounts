@@ -6,5 +6,5 @@ import 'package:reactive_forms/reactive_forms.dart';
 abstract class UsersRepository {
   Future<List<UsersResponse>> getUsers();
   Future<bool> newUser(FormGroup form);
-  Future<bool> deletedUser(int id);
+  Future<bool> deletedUser(String id);
 }

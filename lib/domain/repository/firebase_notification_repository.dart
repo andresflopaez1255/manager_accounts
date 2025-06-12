@@ -5,7 +5,7 @@ class FirebaseNotificationRepository {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   initNotification() async {
-    final fcmToken = await _firebaseMessaging.getToken();
+    final fcmToken =  await _firebaseMessaging.getToken();
 
     print(fcmToken);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
@@ -24,5 +24,5 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
 
-  print("Handling a background message: ${message}");
+  print("Handling a background message: $message");
 }

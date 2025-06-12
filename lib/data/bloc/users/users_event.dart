@@ -12,6 +12,6 @@ class NewUserEvent extends UsersEvent {
 }
 
 class DeleteUsersEvent extends UsersEvent {
-  final int id;
+  final String id;
   DeleteUsersEvent(this.id);
 }

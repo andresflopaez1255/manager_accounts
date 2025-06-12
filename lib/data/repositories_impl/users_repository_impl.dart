@@ -39,10 +39,10 @@ class UsersRespositoryImpl extends UsersRepository {
   }
 
   @override
-  Future<bool> deletedUser(int id) async {
+  Future<bool> deletedUser(String id) async {
     bool success = false;
     final response = await httpClient
-        .deleteApiCall(url: '/delete_user', params: {"id": "$id"});
+        .deleteApiCall(url: '/delete_user', params: {"id": id});
 
     if (response?.statusCode == 200) {
       success = true;

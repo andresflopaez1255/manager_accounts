@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:manager_accounts/utils/config/AppTheme.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   final String text;
@@ -23,15 +22,15 @@ class ButtonWithIcon extends StatelessWidget {
     return ElevatedButton(
       style: style ??
           ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             )),
           ),
       onPressed: onPress,
       child: SizedBox(
-        width: width ?? 80,
+        width: width ?? 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

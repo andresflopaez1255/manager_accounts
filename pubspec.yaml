@@ -17,8 +17,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.1+2
 
-environment:
-  sdk: ">=2.17.6 <3.0.0"
+environment:  
+  sdk: '>=2.12.0 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -29,21 +29,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  dio: ^4.0.6
-  provider: ^6.0.3
+  cupertino_icons: ^1.0.8
+  dio: ^5.7.0
+  provider: ^6.1.2
   datetime_picker_formfield: ^2.0.1
   skeleton_loader: ^2.0.0+4
  
-  flutter_bloc: ^8.1.1
-  skeletons: ^0.0.3
-  reactive_forms: ^14.1.0
-  flutter_screenutil: ^5.6.0
-  shared_preferences: ^2.1.2
-  reactive_date_time_picker: ^0.6.1
-  firebase_core: ^2.24.2
-  firebase_messaging: ^14.7.10
-  flutter_tools: ^0.0.1-beta
+  flutter_bloc: ^8.1.6
+  reactive_forms: ^17.0.1
+  flutter_screenutil: ^5.9.3
+  shared_preferences: ^2.3.2
+  reactive_date_time_picker: ^4.0.0
+  firebase_core: 3.9.0
+  firebase_messaging: ^15.1.2
+  skeletonizer: ^1.4.2
+  shimmer: ^2.0.0
+  flutter_localizations:
+    sdk: flutter
+ 
  
 
 dev_dependencies:
@@ -55,8 +58,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  change_app_package_name: ^1.1.0
+  flutter_lints: ^4.0.0
+  change_app_package_name: ^1.4.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -93,6 +96,12 @@ flutter:
           fonts:
             - asset: assets/fonts/MontaguSlab-Bold.ttf
             - asset: assets/fonts/MontaguSlab-Medium.ttf
+        - family: Inter
+          fonts:
+            - asset: assets/fonts/Inter.ttf
+                
+    
+
   #        
   #
   # For details regarding fonts from package dependencies,

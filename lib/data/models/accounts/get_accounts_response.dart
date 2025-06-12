@@ -36,6 +36,8 @@ class AccountsDto {
       };
 }
 
+
+
 class AccountResponse {
   AccountResponse({
     required this.id,
@@ -51,13 +53,13 @@ class AccountResponse {
     required this.category,
   });
 
-  int id;
-  int idUser;
+  String id;
+  String idUser;
   String emailAccount;
   String passAccount;
   String nameProfile;
   int codeProfile;
-  int idCategory;
+  String idCategory;
   String expirationDate;
   String nameUser;
   String cellphoneUser;

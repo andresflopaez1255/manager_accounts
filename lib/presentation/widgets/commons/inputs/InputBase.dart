@@ -11,7 +11,7 @@ class InputBase extends StatefulWidget {
   final FormGroup? form;
   final TextInputType? keyboardType;
   const InputBase({
-    super.key,
+    Key? key,
     this.onChanged,
     required this.label,
     this.padding,
@@ -19,7 +19,7 @@ class InputBase extends StatefulWidget {
     this.defaultValue,
     required this.formControl,
     this.form,
-  });
+  }) : super(key: key);
 
   @override
   State<InputBase> createState() => _InputBaseState();
@@ -44,21 +44,6 @@ class _InputBaseState extends State<InputBase> {
           formControlName: widget.formControl,
           keyboardType: widget.keyboardType,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 1,
-                )),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 2,
-                )),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 1,
-                )),
             label: Text(widget.label),
             filled: true,
             labelStyle: Theme.of(context).textTheme.labelLarge,

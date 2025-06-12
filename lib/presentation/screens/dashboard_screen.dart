@@ -26,6 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       bottomNavigationBar: BottomNav(currentIndex: currentIndex, onNavigatePage: onNavigatePage),
       body: _screensList[currentIndex],
     );

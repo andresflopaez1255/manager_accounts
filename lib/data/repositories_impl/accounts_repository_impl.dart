@@ -28,13 +28,13 @@ class AccountsRepositoryImpl implements AccountsRepository {
       "email_account": form.control('email_account').value,
       "pass_account": form.control('password').value,
       "name_profile": form.control('account_profile').value,
-      "code_profile": double.parse(form.control('pin_account').value),
-      "id_category": 1,
+      "code_profile": int.parse(form.control('pin_account').value),
+      "id_category": "0ef1bd40-7a43-4e60-ac8e-77db44db9642",
       "expiration_date":
           DateFormat('MM/dd/yyyy').format(form.control('expiration_date').value)
     };
     bool success = false;
-    final response = await httpClient.postApiCall('/new_account', data);
+    final response = await  httpClient.postApiCall('/new_account', data);
 
     if (response?.statusCode == 200) {
       success = true;
@@ -44,7 +44,7 @@ class AccountsRepositoryImpl implements AccountsRepository {
   }
 
   @override
-  Future<bool> editAccount(FormGroup form, int id) async {
+  Future<bool> editAccount(FormGroup form, String id) async {
     final data = {
       "id": id,
       "id_user": form.control('client_id').value,
@@ -66,10 +66,10 @@ class AccountsRepositoryImpl implements AccountsRepository {
   }
 
   @override
-  Future<BasicResponse?> deleteAccount(int idAccount) async {
+  Future<BasicResponse?> deleteAccount(String idAccount) async {
     BasicResponse? responseJson;
     final response = await httpClient
-        .deleteApiCall(url: '/delete_account', params: {"id": "$idAccount"});
+        .deleteApiCall(url: '/delete_account', params: {"id": idAccount});
 
     if (response?.statusCode == 200) {
       responseJson = BasicResponse.fromJson(response.toString());

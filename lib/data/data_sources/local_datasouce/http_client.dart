@@ -6,7 +6,7 @@ class Api {
   static BaseOptions options = BaseOptions(
   baseUrl: Constants.baseURL,
   responseType: ResponseType.json,
-  connectTimeout: 30000,
-  receiveTimeout: 30000);
+  connectTimeout: const Duration(milliseconds: 30000),
+  receiveTimeout: const Duration(milliseconds: 30000));
   static final  dio = Dio(options);
 }

@@ -25,16 +25,16 @@ class SignUpScreen extends StatelessWidget {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Flex(
+                const Flex(
                     mainAxisAlignment: MainAxisAlignment.end,
                     direction: Axis.horizontal,
-                    children: const [
+                    children: [
                       CloseButton(),
                     ]),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child:
-                      Icon(size: 95, color: Colors.green, Icons.check_circle),
+                      Icon( Icons.check_circle, size: 95, color: Colors.green,),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -145,8 +145,9 @@ class SignUpScreen extends StatelessWidget {
                           Navigator.pushNamed(context, '/signIn');
                         },
                         child: Text(
+                           '¿Ya tienes usuario?,Ingresa aqui',
                           textAlign: TextAlign.center,
-                          '¿Ya tienes usuario?,Ingresa aqui',
+                         
                           style: AppTheme.textStyle['subtitle2']?.copyWith(
                               fontSize: 16,
                               decoration: TextDecoration.underline,

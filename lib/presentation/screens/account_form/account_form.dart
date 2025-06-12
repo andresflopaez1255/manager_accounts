@@ -16,7 +16,7 @@ import '../../../utils/config/AppTheme.dart';
 import '../../widgets/commons/commons.dart';
 
 class AccountForm extends StatelessWidget {
-  const AccountForm({super.key});
+  const AccountForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,9 @@ class AccountForm extends StatelessWidget {
 
 class FormInputsAccount extends StatelessWidget {
   const FormInputsAccount({
-    super.key,
+    Key? key,
     required this.arguments,
-  });
+  }) : super(key: key);
 
   final Map<String, AccountResponse>? arguments;
 
@@ -57,7 +57,9 @@ class FormInputsAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     final item = arguments?['item'];
 
-    final date = DateTime.parse(formatDateString(item?.expirationDate));
+    final date = DateTime.parse(item?.expirationDate != null
+        ? formatDateString(item?.expirationDate)
+        : DateTime.now().add(const Duration(days: 30)).toString());
     final bloc = context.read<AccountBloc>();
     return BlocConsumer<AccountBloc, AccountState>(
         bloc: bloc,
@@ -88,20 +90,18 @@ class FormInputsAccount extends StatelessWidget {
                       builder: (context, state) {
                         if (state is ListUsersData) {
                           final users = state.list;
-                          return SelectInput<int>(
+                          return SelectInput<String>(
                               defaultValue: item?.idUser,
                               form: form,
                               items: [
                                 const DropdownMenuItem(
-                                    value: 0,
+                                    value: "dsfdsfsf",
                                     enabled: false,
                                     child: Text("Seleccione un nombre")),
-                                ...users
-                                    .map((item) => DropdownMenuItem(
-                                          value: item.id,
-                                          child: Text(item.nameUser),
-                                        ))
-                                    .toList(),
+                                ...users.map((item) => DropdownMenuItem(
+                                      value: item.id,
+                                      child: Text(item.nameUser),
+                                    )),
                               ],
                               label: "Nombre de cliente",
                               onChanged: (p0) {},
@@ -148,7 +148,15 @@ class FormInputsAccount extends StatelessWidget {
                         onChanged: (String text) {},
                       ),
                     ),
-                    Button(
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Button(
+                          width: 150.w,
+                          height:  45.w,
                         title: item != null ? 'Actualizar' : 'Guardar',
                         onTap: () {
                           if (item != null) {
@@ -157,16 +165,16 @@ class FormInputsAccount extends StatelessWidget {
                           }
                           bloc.add(NewAccountEvent(form));
                         }),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    OutlineBtn(
-                      background: AppTheme.colors['secondaryColorButton'],
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      },
-                      title: 'Cancelar',
-                    ),
+                 
+                    Button(
+                        width: 150.w,
+                        height:  45.w,
+                        title: "Cancelar",
+                        background: AppTheme.colors['secondaryColorButton'],
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, '/home');
+                        }),
+                    ],)
                   ],
                 );
               });

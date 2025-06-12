@@ -17,6 +17,10 @@ class DialogDelete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+    
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       alignment: Alignment.center,
       title: const Text('¿Está seguro que desea Eliminar?',
           textAlign: TextAlign.center),

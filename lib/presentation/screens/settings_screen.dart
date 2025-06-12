@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manager_accounts/data/bloc/settings/settings_bloc.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
-import 'package:manager_accounts/utils/shared_preference.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -17,10 +16,10 @@ class SettingsScreen extends StatelessWidget {
           builder: (context, state) {
             final bloc = context.read<SettingsBloc>();
             return Column(children: [
-              Card(
+              const Card(
                 elevation: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Column(
                     children: [
                       Row(
@@ -29,23 +28,23 @@ class SettingsScreen extends StatelessWidget {
                             Text(
                               'Informacion personal',
                             ),
-                            const Icon(Icons.arrow_forward_ios_sharp)
+                            Icon(Icons.arrow_forward_ios_sharp)
                           ]),
                     ],
                   ),
                 ),
               ),
-              Card(
+              const Card(
                 elevation: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Cambio de contrasena',
                         ),
-                        const Icon(Icons.arrow_forward_ios_sharp)
+                        Icon(Icons.arrow_forward_ios_sharp)
                       ]),
                 ),
               ),
@@ -57,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Modo oscuro',
                         ),
                         BlocBuilder<SettingsBloc, SettingsState>(
@@ -82,17 +81,17 @@ class SettingsScreen extends StatelessWidget {
                       ]),
                 ),
               ),
-              Card(
+              const Card(
                 elevation: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Sobre la aplicación',
                         ),
-                        const Icon(Icons.arrow_forward_ios_sharp)
+                        Icon(Icons.arrow_forward_ios_sharp)
                       ]),
                 ),
               ),

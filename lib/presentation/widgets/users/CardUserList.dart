@@ -6,7 +6,6 @@ import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/presentation/widgets/accounts/accounts.dart';
 import 'package:manager_accounts/presentation/widgets/commons/commons.dart';
 import 'package:manager_accounts/presentation/widgets/modals/commons/common_modal_controller.dart';
-import 'package:manager_accounts/presentation/widgets/users/form_edit/UsersModalController.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
@@ -21,6 +20,9 @@ class CardUserList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

@@ -5,7 +5,7 @@ abstract class AccountEvent {}
 class DataListEvent extends AccountEvent {}
 
 class DeleteAccountEvent extends AccountEvent {
-   final int idAccount;
+   final String idAccount;
   DeleteAccountEvent(this.idAccount);
 }
 
@@ -16,6 +16,6 @@ class NewAccountEvent extends AccountEvent {
 
 class UpdateAccountEvent extends AccountEvent {
   final FormGroup data;
-  final int id;
+  final String id;
   UpdateAccountEvent(this.data, this.id);
 }

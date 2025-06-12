@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:manager_accounts/utils/config/AppTheme.dart';
 
 class ButtonAdd extends StatelessWidget {
   final void Function()? onPressed;

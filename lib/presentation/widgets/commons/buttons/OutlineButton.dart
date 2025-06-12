@@ -28,10 +28,10 @@ class OutlineBtn extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onTap,
         style: ButtonStyle(
-          side: MaterialStateProperty.all(
+          side: WidgetStateProperty.all(
             BorderSide(color: AppTheme.colors['blue_secondary']!, width: 2, style: BorderStyle.solid),
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           )),

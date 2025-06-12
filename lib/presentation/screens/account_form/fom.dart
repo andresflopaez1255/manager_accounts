@@ -4,7 +4,7 @@ FormGroup buildForm() => fb.group(<String, Object>{
       'email_account': FormControl<String>(
         validators: [Validators.required, Validators.email],
       ),
-      'client_id': FormControl<int>(validators: [Validators.required]),
+      'client_id': FormControl<String>(validators: [Validators.required]),
       'pin_account': [
         Validators.required,
         Validators.minLength(4),
