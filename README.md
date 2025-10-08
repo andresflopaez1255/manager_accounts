@@ -4,18 +4,14 @@
 
 ## Descripción
 
-**Manager Accounts** es una aplicación desarrollada con Flutter para gestionar cuentas y usuarios de forma sencilla y visual. Está pensada para administracion de perfiles y cuentas de plataformas de streaming.
+**Manager Accounts** es una aplicación Flutter diseñada para gestionar perfiles de Netflix de forma sencilla y eficiente.
 
+## 🚀 Características
 
-## Estructura del proyecto
-
-- **lib/**
-	- **data/**: Fuentes de datos, repositorios e implementaciones.
-	- **domain/**: Entidades y lógica de negocio.
-	- **presentation/**: Pantallas, widgets y lógica de UI.
-	- **utils/**: Configuración y utilidades (temas, rutas).
-- **assets/**: Imágenes y fuentes (por ejemplo `assets/images/` y `assets/fonts/`).
-- **ios/**, **android/**: Configuración nativa de cada plataforma.
+- **Gestión de perfiles:** Crea, edita y gestiona cuentas/perfiles de plataformas.
+- **Arquitectura limpia:** Estructura de código mantenible y escalable.
+- **Persistencia de datos:** Guarda información localmente usando Shared Preferences.
+- **Gestión de estado avanzada:** Implementación de Flutter Bloc para un flujo de datos robusto.
 
 ## Tecnologías utilizadas
 
@@ -31,25 +27,14 @@
 git clone https://github.com/tuusuario/manager_accounts.git
 cd manager_accounts
 flutter pub get
+flutter run
 ```
 
-### Ejecutar en Android
+## ✨ Contribuciones
 
-```bash
-flutter run -d <android-device-id>
-```
+¡Las contribuciones son bienvenidas! Abre un issue o envía tu pull request.
 
-### Ejecutar en iOS
-
-1. Asegúrate de tener CocoaPods instalado: `brew install cocoapods`
-2. Precache de Flutter para iOS: `flutter precache --ios`
-3. Instala pods:
-
-```bash
-cd ios
-pod install --repo-update
-cd ..
-flutter run -d <ios-device-id>
-```
+---
 
 
+¡Gestiona tus perfiles de Netflix como nunca antes!
