@@ -4,7 +4,7 @@
 
 ## 🚀 Características
 
-- **Gestión de perfiles:** Crea, edita y elimina perfiles de Netflix fácilmente.
+- **Gestión de perfiles:** Crea, edita y gestiona cuentas/perfiles de plataformas.
 - **Arquitectura limpia:** Estructura de código mantenible y escalable.
 - **Persistencia de datos:** Guarda información localmente usando Shared Preferences.
 - **Gestión de estado avanzada:** Implementación de Flutter Bloc para un flujo de datos robusto.
@@ -30,5 +30,6 @@ flutter run
 ¡Las contribuciones son bienvenidas! Abre un issue o envía tu pull request.
 
 ---
+
 
 ¡Gestiona tus perfiles de Netflix como nunca antes!
