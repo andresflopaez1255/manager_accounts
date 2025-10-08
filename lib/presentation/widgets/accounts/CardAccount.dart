@@ -27,8 +27,8 @@ class CardAccount extends StatelessWidget {
           child: Card(
               elevation: 3,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: ExpansionTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -40,7 +40,8 @@ class CardAccount extends StatelessWidget {
                 title: HeaderTitle(item: item),
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -138,18 +139,25 @@ class HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-            width: item.emailAccount.length > 15 ? 120.sp : null,
-            child: ColumnText(
-              title: 'Cuenta:',
-              text: item.emailAccount,
-            )),
-        ColumnText(
-          title: 'Nombre cliente:',
-          text: item.nameUser,
-        ),
+      
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(item.emailAccount, style: AppTheme.textStyle['bodyText2']),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                item.nameUser,
+                style: AppTheme.textStyle['bodyText1']
+                    ?.copyWith(fontSize: 12.sp, color: Colors.blueGrey),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

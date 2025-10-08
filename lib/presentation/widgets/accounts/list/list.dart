@@ -51,7 +51,7 @@ class ListAccounts extends StatelessWidget {
                   return CardAccount(item: state.list[index]);
                 });
       }
-      return  const ListSkeleton(enabled: true);
+      return const ListSkeleton(enabled: true);
     });
   }
 }

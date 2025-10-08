@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -52,6 +49,19 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD_WIR_5QdnUFp83ySrN0sIvAgNA2LWnA4',
+    appId: '1:274290548961:ios:8f933c4630e7a434b217a0',
+    messagingSenderId: '274290548961',
+    projectId: 'accounts-manager-24563',
+    storageBucket: 'accounts-manager-24563.appspot.com',
+    iosBundleId: 'com.hefestsoft.managerAccounts',
+  );
+
+  // NOTE: macOS configuration is currently using the same values as iOS.
+  // This is a fallback so the app can run on macOS. For a proper setup,
+  // re-run the FlutterFire CLI (`flutterfire configure`) and add macOS
+  // support so the macOS-specific appId/apiKey (if different) are used.
+  static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyD_WIR_5QdnUFp83ySrN0sIvAgNA2LWnA4',
     appId: '1:274290548961:ios:8f933c4630e7a434b217a0',
     messagingSenderId: '274290548961',

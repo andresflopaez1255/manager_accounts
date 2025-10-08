@@ -18,10 +18,20 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   FutureOr<void> _accountsList(
       DataListEvent event, Emitter<AccountState> emit) async {
-    final listResponse = await accountRepository.getAccounts();
+      try {
+            final listResponse = await accountRepository.getAccounts();
 
     final list = listResponse;
-    emit(DataListAccount(list!));
+    if (list != null) {
+      emit(DataListAccount(list));
+    } else {
+      emit(DataListAccount([]));
+    }
+    
+      } catch (e) {
+        emit(ErrorState("Error al cargar las cuentas"));
+        debugPrint(e.toString());
+      }
   }
 
   FutureOr<bool> _newAccount(

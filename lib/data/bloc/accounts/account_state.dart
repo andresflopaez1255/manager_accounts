@@ -13,3 +13,8 @@ class LoadingState extends AccountState {
   final bool load;
   LoadingState(this.load);
 }
+
+class ErrorState extends AccountState {
+  final String message;
+  ErrorState(this.message);
+}

@@ -50,15 +50,13 @@ class _InputDatePickerState extends State<InputDatePicker> {
           
             lastDate: DateTime(5100));
 
-        if (pickedDate != null) {
-          String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate!);
 
-          setState(() {
-            dateInput.text =
-                formattedDate; //set output date to TextField value.
-          });
-        } else {}
-      },
+        setState(() {
+          dateInput.text =
+              formattedDate; //set output date to TextField value.
+        });
+            },
     ));
   }
 }

@@ -15,6 +15,7 @@ class ColumnText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 2,
       children: [
         SizedBox(
           width: 130.sp,
@@ -28,9 +29,7 @@ class ColumnText extends StatelessWidget {
           width: 5,
         ),
         Text(
-          
           text,
-          
           style: AppTheme.textStyle['bodyText1']?.copyWith(fontSize: 12.sp),
           overflow: TextOverflow.ellipsis,
         )
