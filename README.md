@@ -1,34 +1,55 @@
-# 📺 Manager Accounts
+# Manager Accounts
 
-**Manager Accounts** es una aplicación Flutter diseñada para gestionar perfiles de Netflix de forma sencilla y eficiente.
+![Demo](assets/images/loading_app.gif)
 
-## 🚀 Características
+## Descripción
 
-- **Gestión de perfiles:** Crea, edita y elimina perfiles de Netflix fácilmente.
-- **Arquitectura limpia:** Estructura de código mantenible y escalable.
-- **Persistencia de datos:** Guarda información localmente usando Shared Preferences.
-- **Gestión de estado avanzada:** Implementación de Flutter Bloc para un flujo de datos robusto.
+**Manager Accounts** es una aplicación desarrollada con Flutter para gestionar cuentas y usuarios de forma sencilla y visual. Está pensada para administracion de perfiles y cuentas de plataformas de streaming.
 
-## 🛠️ Tecnologías
 
-- **Flutter**
-- **Flutter Bloc**
-- **Shared Preferences**
-- **Clean Architecture**
+## Estructura del proyecto
 
-## 📦 Instalación
+- **lib/**
+	- **data/**: Fuentes de datos, repositorios e implementaciones.
+	- **domain/**: Entidades y lógica de negocio.
+	- **presentation/**: Pantallas, widgets y lógica de UI.
+	- **utils/**: Configuración y utilidades (temas, rutas).
+- **assets/**: Imágenes y fuentes (por ejemplo `assets/images/` y `assets/fonts/`).
+- **ios/**, **android/**: Configuración nativa de cada plataforma.
+
+## Tecnologías utilizadas
+
+- **Flutter** (Dart)
+- **Firebase** (firebase_core, firebase_messaging, opcional)
+- **flutter_bloc** para gestión de estado
+- **dio** para llamadas HTTP
+- **shared_preferences** para almacenamiento local
+
+## Instalación
 
 ```bash
-git clone https://github.com/tu-usuario/manager_accounts.git
+git clone https://github.com/tuusuario/manager_accounts.git
 cd manager_accounts
 flutter pub get
-flutter run
 ```
 
-## ✨ Contribuciones
+### Ejecutar en Android
 
-¡Las contribuciones son bienvenidas! Abre un issue o envía tu pull request.
+```bash
+flutter run -d <android-device-id>
+```
 
----
+### Ejecutar en iOS
 
-¡Gestiona tus perfiles de Netflix como nunca antes!
+1. Asegúrate de tener CocoaPods instalado: `brew install cocoapods`
+2. Precache de Flutter para iOS: `flutter precache --ios`
+3. Instala pods:
+
+```bash
+cd ios
+pod install --repo-update
+cd ..
+flutter run -d <ios-device-id>
+```
+
+
