@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
-import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/users/userData.dart';
-import 'package:manager_accounts/presentation/widgets/modals/commons/modal_loading.dart';
 import 'package:manager_accounts/presentation/widgets/users/form_edit/form_fields.dart';
 import 'package:manager_accounts/utils/config/constants.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -44,8 +41,8 @@ class UserForm extends StatelessWidget {
 }
 
 class FormInputsUser extends StatelessWidget {
-  const FormInputsUser({Key? key, 
-    
+  const FormInputsUser({
+    Key? key,
     required this.arguments,
   }) : super(key: key);
 
@@ -54,67 +51,60 @@ class FormInputsUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final item = arguments?['item'];
-    final bloc = context.read<AccountBloc>();
-    return BlocConsumer<AccountBloc, AccountState>(
-        bloc: bloc,
-        listener: (context, state) {
-          if (state is LoadingState && state.load) {
-            showLoading(context);
-          } else if (state is LoadingState && !state.load) {
-            hideLoading(context);
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          return ReactiveFormBuilder(
-              form: formUser,
-              builder: (context, form, child) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 25.h,
-                    ),
-                    const InputBase(
-                      padding: EdgeInsets.only(bottom: 12),
-                      label: 'Nombre usuario',
-                      formControl: 'name_user',
-                    ),
-                    const InputBase(
-                      padding: EdgeInsets.only(bottom: 12),
-                      label: 'Celular de contacto',
-                      keyboardType: TextInputType.phone,
-                      formControl: 'phone_user',
-                    ),
-                    const InputBase(
-                      padding: EdgeInsets.only(bottom: 40),
-                      label: 'Correo electronico',
-                      formControl: 'email_user',
-                    ),
-                    Button(
-                        title: 'Guardar',
-                        onTap: (() {
-                          context
-                              .read<UsersBloc>()
-                              .add(NewUserEvent(data: form));
 
-                          Navigator.pop(context);
-                        })),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    OutlineBtn(
-                      background: AppTheme.colors['secondaryColorButton'],
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      },
-                      title: 'Cancelar',
-                    ),
-                  ],
-                );
-              });
+
+    return ReactiveFormBuilder(
+        form: formUser,
+        builder: (context, form, child) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 25.h,
+              ),
+              InputBase(
+                form: form,
+                defaultValue: item?.nameUser,
+                padding: const EdgeInsets.only(bottom: 12),
+                label: 'Nombre usuario',
+                formControl: 'name_user',
+              ),
+              InputBase(
+                  form: form,
+                defaultValue: item?.cellphoneUser,
+                padding: const EdgeInsets.only(bottom: 12),
+                label: 'Celular de contacto',
+                keyboardType: TextInputType.phone,
+                formControl: 'phone_user',
+              ),
+              InputBase(
+                  form: form,
+                defaultValue: item?.emailUser,
+                padding: const EdgeInsets.only(bottom: 40),
+                label: 'Correo electronico',
+                formControl: 'email_user',
+              ),
+              Button(
+                  title: 'Guardar',
+                  onTap: (() {
+                    context.read<UsersBloc>().add(NewUserEvent(data: form));
+
+                    Navigator.pop(context);
+                  })),
+              const SizedBox(
+                height: 24,
+              ),
+              OutlineBtn(
+                background: AppTheme.colors['secondaryColorButton'],
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
+                title: 'Cancelar',
+              ),
+            ],
+          );
         });
   }
 }

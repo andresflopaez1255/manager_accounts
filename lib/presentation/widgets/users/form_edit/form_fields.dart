@@ -5,8 +5,8 @@ FormGroup formUser() => fb.group(<String, Object>{
         validators: [Validators.required, Validators.email],
       ),
       'name_user': FormControl<String>(validators: [Validators.required]),
-      'phone_user': [
-        Validators.required,
-        Validators.minLength(4),
-      ],
+      'phone_user':FormControl<String>(
+
+        validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+      ),
     });

@@ -4,23 +4,56 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
 import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
+  
+import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
 import 'package:manager_accounts/presentation/widgets/accounts/accounts.dart';
 import 'package:manager_accounts/presentation/widgets/accounts/list/list_skeleton.dart';
 import 'package:manager_accounts/utils/config/config.dart';
 
-class ListAccounts extends StatelessWidget {
+class ListAccounts extends StatefulWidget {
   const ListAccounts({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AccountBloc, AccountState>(listener: (context, state) {
-      if (state is DataListEvent) return;
+  State<ListAccounts> createState() => _ListAccountsState();
+}
 
+class _ListAccountsState extends State<ListAccounts> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AccountBloc>().add(DataListEvent());
-    }, builder: (context, state) {
-      if (state is DataListAccount) {
-        return state.list.isEmpty
-            ? Padding(
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AccountBloc, AccountState>(
+        listener: (context, state) {
+            if (state is InitialState || state is SuccessState) {
+            context.read<AccountBloc>().add(DataListEvent());
+          }
+        },
+        builder: (context, state) {
+          if (state is InitialState || state is SuccessState) {
+            return  ListSkeleton(
+              child: CardAccount(
+                  item: AccountResponse(
+                      id: '',
+                      idUser: '',
+                      emailAccount: '',
+                      passAccount: '00000000',
+                      nameProfile: '',
+                      codeProfile: 0,
+                      idCategory: '',
+                      expirationDate: '',
+                      nameUser: '',
+                      cellphoneUser: '',
+                      category: '')));
+          }
+          if (state is DataListAccount) {
+            if (state.list.isEmpty) {
+              return Padding(
                 padding: EdgeInsets.only(top: 120.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,8 +74,9 @@ class ListAccounts extends StatelessWidget {
                     )
                   ],
                 ),
-              )
-            : ListView.builder(
+              );
+            }
+            return ListView.builder(
                 padding: const EdgeInsets.only(top: 12),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -50,8 +84,8 @@ class ListAccounts extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return CardAccount(item: state.list[index]);
                 });
-      }
-      return const ListSkeleton(enabled: true);
-    });
+          }
+          return const SizedBox.shrink();
+        });
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:manager_accounts/utils/config/AppTheme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,17 +13,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        const Duration(seconds: 10),
-        () =>Navigator.pushReplacementNamed(context, '/home'));
+    Timer(const Duration(seconds: 6), () {
+      Navigator.removeRouteBelow(context, ModalRoute.of(context)!);
+      Navigator.pushReplacementNamed(context, '/home');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.colors['primary'],
-      body: Center(
-        child: Image.asset('assets/images/splash_icon.gif'),
+      backgroundColor: const Color(0xFFA3363A),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/fondo.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          SafeArea(
+            child: Center(child: Image.asset('assets/images/splash_icon.gif' ,fit: BoxFit.cover,)),
+          ),
+        ],
       ),
     );
   }

@@ -20,6 +20,7 @@ class ButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      
       style: style ??
           ButtonStyle(
             backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),

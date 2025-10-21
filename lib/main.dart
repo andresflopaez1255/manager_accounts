@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
-import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
 import 'package:manager_accounts/data/bloc/settings/settings_bloc.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/data_sources/local_datasouce/httpClient.dart';
@@ -50,14 +49,12 @@ class _AppStateState extends State<AppState> {
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(
-          create: (context) => AccountBloc(
-              accountRepository: context.read<AccountsRepositoryImpl>())
-            ..add(DataListEvent()),
-        ),
+            create: (context) => AccountBloc(
+                accountRepository: context.read<AccountsRepositoryImpl>())),
+       
         BlocProvider(
             create: (context) =>
-                UsersBloc(repository: context.read<UsersRespositoryImpl>())
-                  ..add(UsersListEvent())),
+                UsersBloc(repository: context.read<UsersRespositoryImpl>())),
         BlocProvider(
             create: (context) => SettingsBloc()..add(GetThemeStatus())),
       ], child: const MyApp()),
@@ -92,7 +89,7 @@ class MyApp extends StatelessWidget {
                         debugShowCheckedModeBanner: false,
                         title: 'Flutter Demo',
                         theme: state.theme,
-                        home: const LoginScreen(),
+                        home: const HomeScreen(),
                         initialRoute: '/splash',
                         routes: routes,
                       ));
@@ -105,7 +102,7 @@ class MyApp extends StatelessWidget {
                       debugShowCheckedModeBanner: false,
                       title: 'Flutter Demo',
                       theme: AppTheme.appTheme,
-                      home: const LoginScreen(),
+                      home: const HomeScreen(),
                       initialRoute: '/splash',
                       routes: routes,
                     ));

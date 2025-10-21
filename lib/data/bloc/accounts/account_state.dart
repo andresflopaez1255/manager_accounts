@@ -18,3 +18,11 @@ class ErrorState extends AccountState {
   final String message;
   ErrorState(this.message);
 }
+
+class SuccessState extends AccountState {
+  final String message;
+  SuccessState(this.message);
+}
+
+class InitialState extends AccountState {}
+

@@ -45,7 +45,7 @@ class AccountForm extends StatelessWidget {
   }
 }
 
-class FormInputsAccount extends StatelessWidget {
+class FormInputsAccount extends StatefulWidget {
   const FormInputsAccount({
     Key? key,
     required this.arguments,
@@ -54,8 +54,21 @@ class FormInputsAccount extends StatelessWidget {
   final Map<String, AccountResponse>? arguments;
 
   @override
+  State<FormInputsAccount> createState() => _FormInputsAccountState();
+}
+
+class _FormInputsAccountState extends State<FormInputsAccount> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UsersBloc>().add(UsersListEvent());
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final item = arguments?['item'];
+    final item = widget.arguments?['item'];
 
     final date = DateTime.parse(item?.expirationDate != null
         ? formatDateString(item?.expirationDate)
@@ -64,11 +77,19 @@ class FormInputsAccount extends StatelessWidget {
     return BlocConsumer<AccountBloc, AccountState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is LoadingState && state.load) {
+          if (state is LoadingState) {
             showLoading(context);
-          } else if (state is LoadingState && !state.load) {
-            hideLoading(context);
-            Navigator.pop(context);
+          }
+          hideLoading(context);
+          if (state is SuccessState) {
+            Navigator.pushReplacementNamed(context, '/home');
+            /*  if (state is FailureAccount) {
+              final snackBar = SnackBar(
+                content: Text(state.error),
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } */
           }
         },
         builder: (context, state) {
@@ -155,26 +176,26 @@ class FormInputsAccount extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Button(
-                          width: 150.w,
-                          height:  45.w,
-                        title: item != null ? 'Actualizar' : 'Guardar',
-                        onTap: () {
-                          if (item != null) {
-                            bloc.add(UpdateAccountEvent(form, item.id));
-                            return;
-                          }
-                          bloc.add(NewAccountEvent(form));
-                        }),
-                 
-                    Button(
-                        width: 150.w,
-                        height:  45.w,
-                        title: "Cancelar",
-                        background: AppTheme.colors['secondaryColorButton'],
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, '/home');
-                        }),
-                    ],)
+                            width: 150.w,
+                            height: 45.w,
+                            title: item != null ? 'Actualizar' : 'Guardar',
+                            onTap: () {
+                              if (item != null) {
+                                bloc.add(UpdateAccountEvent(form, item.id));
+                                return;
+                              }
+                              bloc.add(NewAccountEvent(form));
+                            }),
+                        Button(
+                            width: 150.w,
+                            height: 45.w,
+                            title: "Cancelar",
+                            background: AppTheme.colors['secondaryColorButton'],
+                            onTap: () {
+                              Navigator.pushReplacementNamed(context, '/home');
+                            }),
+                      ],
+                    )
                   ],
                 );
               });

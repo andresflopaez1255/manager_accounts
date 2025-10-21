@@ -9,7 +9,7 @@ import 'package:manager_accounts/domain/repository/accounts_repository.dart';
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final AccountsRepository accountRepository;
 
-  AccountBloc({required this.accountRepository}) : super(DataListAccount([])) {
+  AccountBloc({required this.accountRepository}) : super(InitialState()) {
     on<DataListEvent>(_accountsList);
     on<NewAccountEvent>(_newAccount);
     on<DeleteAccountEvent>(_deleteAccount);
@@ -18,20 +18,20 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
   FutureOr<void> _accountsList(
       DataListEvent event, Emitter<AccountState> emit) async {
-      try {
-            final listResponse = await accountRepository.getAccounts();
+    try {
+      
+      final listResponse = await accountRepository.getAccounts();
 
-    final list = listResponse;
-    if (list != null) {
-      emit(DataListAccount(list));
-    } else {
-      emit(DataListAccount([]));
-    }
-    
-      } catch (e) {
-        emit(ErrorState("Error al cargar las cuentas"));
-        debugPrint(e.toString());
+      final list = listResponse;
+      if (list != null) {
+        emit(DataListAccount(list));
+      } else {
+        emit(DataListAccount([]));
       }
+    } catch (e) {
+      emit(ErrorState("Error al cargar las cuentas"));
+      debugPrint(e.toString());
+    }
   }
 
   FutureOr<bool> _newAccount(
@@ -47,6 +47,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       success = false;
       emit(LoadingState(false));
     }
+    emit(SuccessState(success.toString()));
     return success;
   }
 
@@ -63,6 +64,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       success = false;
       emit(LoadingState(false));
     }
+    emit(SuccessState(success.toString()));
     return success;
   }
 
@@ -74,9 +76,11 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       if (response?.status == true) {
         emit(LoadingState(false));
       }
+       emit(SuccessState(response!.status.toString()));
     } catch (e) {
       emit(LoadingState(false));
       debugPrint(e.toString());
     }
+   
   }
 }

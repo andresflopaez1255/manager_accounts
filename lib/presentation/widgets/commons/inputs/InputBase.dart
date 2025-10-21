@@ -28,10 +28,13 @@ class InputBase extends StatefulWidget {
 class _InputBaseState extends State<InputBase> {
   @override
   void initState() {
-    super.initState();
-    if (widget.defaultValue != null && widget.form != null) {
-      widget.form?.control(widget.formControl).value = widget.defaultValue;
+   
+    if (widget.defaultValue != null && widget.defaultValue!.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.form?.control(widget.formControl).value = widget.defaultValue;
+      });
     }
+     super.initState();
   }
 
   @override

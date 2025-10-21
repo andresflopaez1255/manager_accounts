@@ -63,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
                           builder: (context, state) {
                             if (state is SetStateStyleMode) {
                               return Switch(
-                                  activeColor: AppTheme.colors['primary'],
+                                  activeThumbColor: AppTheme.colors['primary'],
                                   value: state.isDarkMode,
                                   onChanged: ((value) {
                                     bloc.add(ChangeThemeApp(isDarkMode: value));
@@ -71,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
                             }
 
                             return Switch(
-                                activeColor: AppTheme.colors['primary'],
+                                activeThumbColor: AppTheme.colors['primary'],
                                 value: false,
                                 onChanged: ((value) {
                                   bloc.add(ChangeThemeApp(isDarkMode: value));

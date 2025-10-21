@@ -74,7 +74,7 @@ class AccountsRepositoryImpl implements AccountsRepository {
     if (response?.statusCode == 200) {
       responseJson = BasicResponse.fromJson(response.toString());
     }
-    getAccounts();
+    
     return responseJson;
   }
 }

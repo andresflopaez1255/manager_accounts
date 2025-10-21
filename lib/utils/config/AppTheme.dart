@@ -66,6 +66,10 @@ class AppTheme {
     primaryColor: colors['primary'],
     colorScheme: const ColorScheme.light(primaryContainer: Colors.black),
     appBarTheme: AppBarTheme(backgroundColor: colors['primary']),
+     expansionTileTheme: const ExpansionTileThemeData(
+      textColor: Colors.black,
+      iconColor: Colors.black,
+    ),
     datePickerTheme: DatePickerThemeData(
       cancelButtonStyle: ButtonStyle(
         foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
@@ -91,9 +95,14 @@ class AppTheme {
   );
   static final appThemeDark = ThemeData(
     useMaterial3: false,
+    fontFamily: 'Inter',
     brightness: Brightness.dark,
-    primaryColor: Colors.blueGrey,
-    scaffoldBackgroundColor: Colors.grey[900],
+    primaryColor: colors['primary'],
+    colorScheme: const ColorScheme.dark(primaryContainer: Colors.white),
+    expansionTileTheme: const ExpansionTileThemeData(
+      textColor: Colors.white,
+      iconColor: Colors.white,
+    ),
     //theme date picker
     datePickerTheme: DatePickerThemeData(
       cancelButtonStyle: ButtonStyle(
@@ -112,44 +121,44 @@ class AppTheme {
     ),
 
     inputDecorationTheme: InputDecorationTheme(
-    filled: true,
-    fillColor: colors['secondary'], // Fondo de los inputs
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0), // Bordes redondeados
-      borderSide:  BorderSide(
-        color: colors['secondary']!, // Color del borde
-        width: 1.0,
-      ),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0),
-      borderSide:  BorderSide(
+      filled: true,
+      fillColor: colors['secondary'], // Fondo de los inputs
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0), // Bordes redondeados
+        borderSide: BorderSide(
           color: colors['secondary']!, // Color del borde
-        width: 1.0,
+          width: 1.0,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+          color: colors['secondary']!, // Color del borde
+          width: 1.0,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+          color: colors['secondary']!, // Color del borde
+          width: 1.0,
+        ),
+      ),
+      labelStyle: TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 14.sp,
+        color: Colors.grey[700], // Color del texto del label
+      ),
+      hintStyle: TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 14.sp,
+        color: Colors.grey[500], // Color del texto del hint
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 15.0,
+        horizontal: 10.0,
       ),
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0),
-      borderSide:  BorderSide(
-         color: colors['secondary']!, // Color del borde
-        width: 1.0,
-      ),
-    ),
-    labelStyle: TextStyle(
-      fontFamily: 'Inter',
-      fontSize: 14.sp,
-      color: Colors.grey[700], // Color del texto del label
-    ),
-    hintStyle: TextStyle(
-      fontFamily: 'Inter',
-      fontSize: 14.sp,
-      color: Colors.grey[500], // Color del texto del hint
-    ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 15.0,
-      horizontal: 10.0,
-    ),
-  ),
     //buttomtext theme
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
@@ -161,7 +170,7 @@ class AppTheme {
     ),
 
     //textfield theme
-    
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.grey[900],
         unselectedIconTheme: const IconThemeData(color: Colors.white)),

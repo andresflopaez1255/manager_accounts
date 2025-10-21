@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+
 class Usersdto {
   Usersdto({
     required this.message,
@@ -33,35 +34,103 @@ class Usersdto {
       };
 }
 
+
+
+
+
+class Account {
+  String? id;
+  String idUser;
+  String emailAccount;
+  String passAccount;
+  String nameProfile;
+  int codeProfile;
+  String idCategory;
+  String expirationDate;
+  String? category;
+  Account({
+    this.id,
+    required this.idUser,
+    required this.emailAccount,
+    required this.passAccount,
+    required this.nameProfile,
+    required this.codeProfile,
+    required this.idCategory,
+    required this.category,
+    required this.expirationDate,
+
+  });
+
+  /// Convierte un Map a un objeto Account
+  factory Account.fromMap(Map<String, dynamic> map) {
+    return Account(
+      id: map['id'],
+      idUser: map['id_user'] ?? '',
+      emailAccount: map['email_account'] ?? '',
+      passAccount: map['pass_account'] ?? '',
+      nameProfile: map['name_profile'] ?? '',
+      codeProfile: (map['code_profile'] is int)
+          ? map['code_profile']
+          : int.tryParse(map['code_profile'].toString()) ?? 0,
+      idCategory: map['id_category'] ?? '',
+      category: map['category'],
+      expirationDate: map['expiration_date'] ?? '',
+    );
+  }
+
+  /// Convierte el objeto Account a un Map (para Firestore o JSON)
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'idUser': idUser,
+      'emailAccount': emailAccount,
+      'passAccount': passAccount,
+      'nameProfile': nameProfile,
+      'codeProfile': codeProfile,
+      'idCategory': idCategory,
+      'expirationDate': expirationDate,
+    };
+  }
+}
+
 class UsersResponse {
+  String id;
+  String nameUser;
+  String cellphoneUser;
+  String emailUser;
+  List<Account> accounts;
+
   UsersResponse({
     required this.id,
     required this.nameUser,
     required this.cellphoneUser,
-    this.emailUser,
+    required this.emailUser,
+    required this.accounts,
   });
 
-  final String id;
-  final String nameUser;
-  final String cellphoneUser;
-  final String? emailUser;
+  /// Convierte un Map (por ejemplo, de JSON) a un objeto UsersResponse
+  factory UsersResponse.fromMap(Map<String, dynamic> map) {
+    return UsersResponse(
+      id: map['id'] ?? '',
+      nameUser: map['name_user'] ?? '',
+      cellphoneUser: map['cellphone_user'] ?? '',
+      emailUser: map['email_user'] ?? '',
+      accounts: map['accounts'] != null
+          ? List<Account>.from(
+              map['accounts'].map((x) => Account.fromMap(x)),
+            )
+          : [],
+    );
+  }
 
-  factory UsersResponse.fromJson(String str) =>
-      UsersResponse.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory UsersResponse.fromMap(Map<String, dynamic> json) => UsersResponse(
-        id: json["id"],
-        nameUser: json["name_user"],
-        cellphoneUser: json["cellphone_user"],
-        emailUser: json["email_user"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "name_user": nameUser,
-        "cellphone_user": cellphoneUser,
-        "email_user": emailUser,
-      };
+  /// Convierte el objeto UsersResponse a un Map (por ejemplo, para guardarlo en Firestore)
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name_user': nameUser,
+      'cellphone_user': cellphoneUser,
+      'email_user': emailUser,
+      'accounts': accounts.map((x) => x.toMap()).toList(),
+    };
+  }
 }

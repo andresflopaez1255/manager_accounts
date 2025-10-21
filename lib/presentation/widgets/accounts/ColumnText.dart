@@ -17,17 +17,12 @@ class ColumnText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 2,
       children: [
-        SizedBox(
-          width: 130.sp,
-          child: Text(
-            title,
-            style: AppTheme.textStyle['bodyText2'],
-            overflow: TextOverflow.clip,
-          ),
+        Text(
+          title,
+          style: AppTheme.textStyle['bodyText2'],
+          overflow: TextOverflow.clip,
         ),
-        const SizedBox(
-          width: 5,
-        ),
+        const SizedBox(height: 3),
         Text(
           text,
           style: AppTheme.textStyle['bodyText1']?.copyWith(fontSize: 12.sp),
