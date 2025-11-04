@@ -30,11 +30,6 @@ jobs:
       - name: Build Android APK
         run: flutter build apk --release
 
-      # 6️⃣ Compilar app iOS (solo si el repo tiene configuración iOS)
-      - name: Build iOS IPA
-        if: ${{ hashFiles('ios/Runner.xcodeproj') != '' }}
-        run: flutter build ipa --release --no-codesign
-
       # 7️⃣ Subir Android a Firebase App Distribution
       - name: Upload Android to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
