@@ -1,9 +1,9 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/presentation/widgets/commons/commons.dart';
 
 class SignUpScreen extends StatelessWidget {
-  final TextEditingController _controllerEmail = TextEditingController();
   SignUpScreen({Key? key}) : super(key: key);
   final items = [
     const DropdownMenuItem(

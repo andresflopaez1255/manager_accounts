@@ -11,11 +11,10 @@ class UserModalContent extends StatelessWidget {
     Key? key,
     required this.size,
     required TextEditingController controllerEmail,
-  })  : _controllerEmail = controllerEmail,
+  })  : 
         super(key: key);
 
   final Size size;
-  final TextEditingController _controllerEmail;
 
   @override
   Widget build(BuildContext context) {
