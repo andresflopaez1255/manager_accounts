@@ -25,10 +25,18 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-     
+      - name: Set version from GitHub run number
+        run: |
+          base_version=$(grep '^version:' pubspec.yaml | cut -d+ -f1 | awk '{print $2}')
+          new_version="${base_version}+${{ github.run_number }}"
+          sed -i "s/^version:.*/version: $new_version/" pubspec.yaml
+
+
+          
       # 5️⃣ Compilar app Android
-      - name: Build Android APK
-        run: flutter build apk --release
+
+      - name: Build Android APK 
+        run: flutter build apk --release    
 
       # 7️⃣ Subir Android a Firebase App Distribution
       - name: Upload Android to Firebase App Distribution
