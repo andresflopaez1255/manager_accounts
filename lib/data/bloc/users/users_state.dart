@@ -15,3 +15,7 @@ class UsersLoadingState extends UsersState {}
 class SucessCreateUser extends UsersState {}
 
 class ErrorCreateUser extends UsersState {}
+class UserContactState extends UsersState {
+  final Usercontact contact;
+  UserContactState(this.contact);
+}

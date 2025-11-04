@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                           Locale('en', 'US'), // Inglés
                         ],
                         debugShowCheckedModeBanner: false,
-                        title: 'Flutter Demo',
+                        title: 'Eliane App',
                         theme: state.theme,
                         home: const HomeScreen(),
                         initialRoute: '/splash',
@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
                 splitScreenMode: true,
                 builder: (context, child) => MaterialApp(
                       debugShowCheckedModeBanner: false,
-                      title: 'Flutter Demo',
+                      title: 'Eliane App',
                       theme: AppTheme.appTheme,
                       home: const HomeScreen(),
                       initialRoute: '/splash',

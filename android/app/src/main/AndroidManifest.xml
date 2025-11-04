@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
-        android:label="manager_accounts"
+        android:label="Eliane App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

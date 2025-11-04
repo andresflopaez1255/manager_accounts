@@ -1,0 +1,69 @@
+name: Flutter CI/CD - Firebase Distribution
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Descargar el repositorio
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Instalar Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0' # ajusta según tu versión
+
+      # 3️⃣ Instalar dependencias
+      - name: Get dependencies
+        run: flutter pub get
+
+      # 4️⃣ Incrementar versionCode y versionName automáticamente
+      - name: Bump build version
+        run: |
+          old_version=$(grep 'version:' pubspec.yaml | awk '{print $2}')
+          base_version=$(echo $old_version | cut -d+ -f1)
+          build_number=$(echo $old_version | cut -d+ -f2)
+          new_build_number=$((build_number + 1))
+          sed -i "s/version: .*/version: $base_version+$new_build_number/" pubspec.yaml
+          echo "✅ Nueva versión: $base_version+$new_build_number"
+
+      # 5️⃣ Compilar app Android
+      - name: Build Android APK
+        run: flutter build apk --release
+
+      # 6️⃣ Compilar app iOS (solo si el repo tiene configuración iOS)
+      - name: Build iOS IPA
+        if: ${{ hashFiles('ios/Runner.xcodeproj') != '' }}
+        run: flutter build ipa --release --no-codesign
+
+      # 7️⃣ Subir Android a Firebase App Distribution
+      - name: Upload Android to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-release.apk
+          releaseNotes: "Versión Android generada automáticamente desde GitHub Actions 🚀"
+
+      # 8️⃣ Subir iOS a Firebase App Distribution (si aplica)
+      - name: Upload iOS to Firebase App Distribution
+        if: ${{ hashFiles('build/ios/ipa/*.ipa') != '' }}
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: build/ios/ipa/*.ipa
+          releaseNotes: "Versión iOS generada automáticamente desde GitHub Actions 🍎🚀"
+      # 9️⃣ Notificar finalización
+      - name: Notify completion
+        run: echo "✅ Distribución a Firebase App Distribution completada." 

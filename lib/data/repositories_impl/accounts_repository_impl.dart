@@ -52,8 +52,9 @@ class AccountsRepositoryImpl implements AccountsRepository {
       "pass_account": form.control('password').value,
       "name_profile": form.control('account_profile').value,
       "code_profile": double.parse(form.control('pin_account').value),
-      "id_category": 1,
-      "expiration_date": "04/11/2022"
+      "id_category": "0ef1bd40-7a43-4e60-ac8e-77db44db9642",
+      "expiration_date": DateFormat('MM/dd/yyyy')
+          .format(form.control('expiration_date').value)
     };
     bool success = false;
     final response = await httpClient.postApiCall('/update_account', data);

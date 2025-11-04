@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardAccount extends StatelessWidget {
   final AccountResponse item;
+  final controller = ExpansibleController();
   // ignore: prefer_const_constructors_in_immutables
   CardAccount({
     Key? key,
@@ -25,108 +27,143 @@ class CardAccount extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ExpansionTile(
+          child: InkWell(
+            onTap: () {
+              if (controller.isExpanded) {
+                controller.collapse();
+              } else {
+                controller.expand();
+              }
+            },
+            onLongPress: () async {
+              final data =
+                  "Correo: ${item.emailAccount}\nContraseña: ${item.passAccount}\nPerfil: ${item.nameProfile}\nPin: ${item.codeProfile}\nVence: ${item.expirationDate}";
+
+              CommonModalController.infoDialogAccount(
+                context: context,
+                item: item,
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: data));
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Información de la cuenta copiada al portapapeles',
+                        style: AppTheme.textStyle['bodyText2']
+                            ?.copyWith(color: Colors.white),
+                      ),
+                      backgroundColor:
+                          AppTheme.colors['primary'] ?? Colors.blue,
+                    ),
+                  );
+                },
+              );
+            },
+            child: Card(
+                elevation: 3,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                showTrailingIcon: false,
-                tilePadding: const EdgeInsets.symmetric(horizontal: 12),
-                title: HeaderTitle(item: item),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ColumnText(
-                              title: 'Contraseña',
-                              text: item.passAccount.replaceRange(
-                                  2, item.passAccount.length, '*****'),
-                            ),
-                            ColumnText(
-                              title: 'Perfil cuenta',
-                              text: item.nameProfile,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 14),
-                          child: Row(
+                child: ExpansionTile(
+                  enableFeedback: true,
+                  dense: false,
+                  controller: controller,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  showTrailingIcon: false,
+                  tilePadding: const EdgeInsets.symmetric(horizontal: 12),
+                  title: HeaderTitle(item: item),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               ColumnText(
-                                title: 'Fecha de renov:',
-                                text: item.expirationDate,
+                                title: 'Contraseña',
+                                text: item.passAccount.replaceRange(
+                                    2, item.passAccount.length, '*****'),
                               ),
                               ColumnText(
-                                title: 'Pin cuenta',
-                                text: item.codeProfile.toString(),
+                                title: 'Perfil cuenta',
+                                text: item.nameProfile,
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 19,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ButtonWithIcon(
-                              text: 'Eliminar',
-                              icon: Icons.delete_forever,
-                              onPress: () {
-                                CommonModalController.deleteDialog(
-                                    context: context,
-                                    deletedTap: () {
-                                      context
-                                          .read<AccountBloc>()
-                                          .add(DeleteAccountEvent(item.id));
-                                      if (state is LoadingState) {
-                                        showLoading(context);
-                                      } else if (state is SuccessState) {
-                                        hideLoading(context);
-                                       
-                                      }
-                                       Navigator.pop(context);
-                                    },
-                                    message:
-                                        'Si elimina esta cuenta no se podrá volver a recuperar su información');
-                              },
-                              backgroundColor:
-                                  AppTheme.colors['primary'] ?? Colors.blue,
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 14),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ColumnText(
+                                  title: 'Fecha de renov:',
+                                  text: item.expirationDate,
+                                ),
+                                ColumnText(
+                                  title: 'Pin cuenta',
+                                  text: item.codeProfile.toString(),
+                                ),
+                              ],
                             ),
-                            ButtonWithIcon(
-                              text: 'Editar',
-                              icon: Icons.edit,
-                              onPress: () {
-                                Navigator.pushNamed(context, '/accountForm',
-                                    arguments: {
-                                      'item': item,
-                                    });
-                              },
-                              backgroundColor:
-                                  AppTheme.colors['secondaryColorButton'] ??
-                                      Colors.blue,
-                            )
-                          ],
-                        )
-                      ],
+                          ),
+                          const SizedBox(
+                            height: 19,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ButtonWithIcon(
+                                text: 'Eliminar',
+                                icon: Icons.delete_forever,
+                                onPress: () {
+                                  CommonModalController.deleteDialog(
+                                      context: context,
+                                      deletedTap: () {
+                                        context
+                                            .read<AccountBloc>()
+                                            .add(DeleteAccountEvent(item.id));
+                                        if (state is LoadingState) {
+                                          showLoading(context);
+                                        } else if (state is SuccessState) {
+                                          hideLoading(context);
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      message:
+                                          'Si elimina esta cuenta no se podrá volver a recuperar su información');
+                                },
+                                backgroundColor:
+                                    AppTheme.colors['primary'] ?? Colors.blue,
+                              ),
+                              ButtonWithIcon(
+                                text: 'Editar',
+                                icon: Icons.edit,
+                                onPress: () {
+                                  Navigator.pushNamed(context, '/accountForm',
+                                      arguments: {
+                                        'item': item,
+                                      });
+                                },
+                                backgroundColor:
+                                    AppTheme.colors['secondaryColorButton'] ??
+                                        Colors.blue,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                )),
+          ),
         );
       },
     );

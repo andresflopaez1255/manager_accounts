@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manager_accounts/data/models/users/userContact.dart';
 import 'package:manager_accounts/domain/repository/users_repository.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -17,6 +18,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     on<UsersListEvent>(getUsers);
     on<NewUserEvent>(_newUseer);
     on<DeleteUsersEvent>(_deleteUsers);
+    on<SetContactUser>(_setContactUsr);
   }
 
   getUsers(UsersListEvent event, Emitter<UsersState> emit) async {
@@ -45,5 +47,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+FutureOr<void> _setContactUsr(
+      SetContactUser event, Emitter<UsersState> emit)  {
+    emit(UserContactState(event.contact));
   }
 }

@@ -15,3 +15,9 @@ class DeleteUsersEvent extends UsersEvent {
   final String id;
   DeleteUsersEvent(this.id);
 }
+
+
+class SetContactUser extends UsersEvent {
+  final Usercontact contact;
+  SetContactUser(this.contact);
+}

@@ -7,6 +7,7 @@ class InputBase extends StatefulWidget {
   final String label;
   final Function(String)? onChanged;
   final EdgeInsetsGeometry? padding;
+  final double? height;
   final String? defaultValue;
   final FormGroup? form;
   final TextInputType? keyboardType;
@@ -18,7 +19,7 @@ class InputBase extends StatefulWidget {
     this.keyboardType,
     this.defaultValue,
     required this.formControl,
-    this.form,
+    this.form,  this.height,
   }) : super(key: key);
 
   @override
@@ -42,7 +43,7 @@ class _InputBaseState extends State<InputBase> {
     return Padding(
       padding: widget.padding ?? const EdgeInsets.only(top: 8.0),
       child: SizedBox(
-        height: 65.h,
+        height: widget.height ?? 65.h,
         child: ReactiveTextField(
           formControlName: widget.formControl,
           keyboardType: widget.keyboardType,

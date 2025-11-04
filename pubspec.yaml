@@ -34,7 +34,8 @@ dependencies:
   provider: ^6.1.2
   datetime_picker_formfield: ^2.0.1
   skeleton_loader: ^2.0.0+4
- 
+  flutter_contacts: ^1.1.9+2
+  permission_handler: ^11.3.0
   flutter_bloc: ^8.1.6
   reactive_forms: ^17.0.1
   flutter_screenutil: ^5.9.3
