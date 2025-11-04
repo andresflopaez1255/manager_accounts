@@ -25,16 +25,7 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      # 4️⃣ Incrementar versionCode y versionName automáticamente
-      - name: Bump build version
-        run: |
-          old_version=$(grep 'version:' pubspec.yaml | awk '{print $2}')
-          base_version=$(echo $old_version | cut -d+ -f1)
-          build_number=$(echo $old_version | cut -d+ -f2)
-          new_build_number=$((build_number + 1))
-          sed -i "s/version: .*/version: $base_version+$new_build_number/" pubspec.yaml
-          echo "✅ Nueva versión: $base_version+$new_build_number"
-
+     
       # 5️⃣ Compilar app Android
       - name: Build Android APK
         run: flutter build apk --release
