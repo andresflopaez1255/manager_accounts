@@ -24,5 +24,10 @@ class SuccessState extends AccountState {
   SuccessState(this.message);
 }
 
+class ChangeCategoryAccountState extends AccountState {
+  final String idCategory;
+  ChangeCategoryAccountState(this.idCategory);
+}
+
 class InitialState extends AccountState {}
 

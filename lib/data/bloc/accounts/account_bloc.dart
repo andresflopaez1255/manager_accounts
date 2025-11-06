@@ -14,6 +14,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     on<NewAccountEvent>(_newAccount);
     on<DeleteAccountEvent>(_deleteAccount);
     on<UpdateAccountEvent>(_updateAccount);
+    on<ChangeCategoryAccountEvent>(_changeCategoryAccount);
   }
 
   FutureOr<void> _accountsList(
@@ -82,5 +83,14 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       debugPrint(e.toString());
     }
    
+  }
+
+  FutureOr<void> _changeCategoryAccount(
+      ChangeCategoryAccountEvent event, Emitter<AccountState> emit) async {
+    try {
+      emit(ChangeCategoryAccountState(event.idCategory));
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

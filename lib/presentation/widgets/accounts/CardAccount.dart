@@ -182,7 +182,7 @@ class HeaderTitle extends StatelessWidget {
     Color colorContainerTag = Colors.black;
     Color colorTextTag = Colors.red;
     if (category.contains("Netflix")) {
-      colorContainerTag = Colors.black;
+      colorContainerTag = const Color(0xFF000000);
       colorTextTag = Colors.red;
     } else if (category.contains("HBO")) {
       colorContainerTag = Colors.red;

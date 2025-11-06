@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
+import 'package:manager_accounts/data/bloc/categories/categories_bloc.dart';
 import 'package:manager_accounts/data/bloc/settings/settings_bloc.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/data_sources/local_datasouce/httpClient.dart';
 import 'package:manager_accounts/data/repositories_impl/accounts_repository_impl.dart';
+import 'package:manager_accounts/data/repositories_impl/categories_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/users_repository_impl.dart';
 import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
@@ -46,17 +48,20 @@ class _AppStateState extends State<AppState> {
         RepositoryProvider(
           create: (context) => UsersRespositoryImpl(httpClient: HttpClient()),
         ),
+        RepositoryProvider(
+            create: (context) =>
+                CategoriesRepositoryImpl(httpClient: HttpClient())),
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(
             create: (context) => AccountBloc(
                 accountRepository: context.read<AccountsRepositoryImpl>())),
-       
         BlocProvider(
             create: (context) =>
                 UsersBloc(repository: context.read<UsersRespositoryImpl>())),
         BlocProvider(
             create: (context) => SettingsBloc()..add(GetThemeStatus())),
+        BlocProvider(create: (context) => CategoriesBloc(categoriesRepository: context.read<CategoriesRepositoryImpl>())),
       ], child: const MyApp()),
     );
   }

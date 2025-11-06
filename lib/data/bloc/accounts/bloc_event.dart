@@ -19,3 +19,8 @@ class UpdateAccountEvent extends AccountEvent {
   final String id;
   UpdateAccountEvent(this.data, this.id);
 }
+
+class ChangeCategoryAccountEvent extends AccountEvent {
+  final String idCategory;
+  ChangeCategoryAccountEvent(this.idCategory);
+}

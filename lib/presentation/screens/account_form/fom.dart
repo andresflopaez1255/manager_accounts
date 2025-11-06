@@ -19,5 +19,8 @@ FormGroup buildForm() => fb.group(<String, Object>{
       ],
       'password': [
         Validators.minLength(4),
-      ]
+      ],
+      'category_id': FormControl<String>(
+        validators: [Validators.required],
+      ),
     });

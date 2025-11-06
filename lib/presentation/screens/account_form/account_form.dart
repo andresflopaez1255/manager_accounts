@@ -4,11 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_state.dart';
 import 'package:manager_accounts/data/bloc/accounts/bloc_event.dart';
+import 'package:manager_accounts/data/bloc/categories/categories_bloc.dart';
+import 'package:manager_accounts/data/bloc/categories/categories_event.dart';
+import 'package:manager_accounts/data/bloc/categories/categories_state.dart';
 import 'package:manager_accounts/data/bloc/users/users_bloc.dart';
 import 'package:manager_accounts/data/models/accounts/get_accounts_response.dart';
+import 'package:manager_accounts/data/models/categories/categories_response.dart';
 import 'package:manager_accounts/presentation/screens/account_form/fom.dart';
 import 'package:manager_accounts/presentation/widgets/modals/commons/modal_loading.dart';
 import 'package:manager_accounts/utils/config/constants.dart';
+import 'package:manager_accounts/utils/hex_to_color.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:manager_accounts/utils/date_format_string.dart';
 
@@ -62,6 +67,7 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UsersBloc>().add(UsersListEvent());
+      context.read<CategoriesBloc>().add(CategoriesListEvent());
     });
     super.initState();
   }
@@ -98,6 +104,22 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
               builder: (context, form, child) {
                 return Column(
                   children: [
+                    item == null
+                        ? BlocBuilder<CategoriesBloc, CategoriesState>(
+                            builder: (context, state) {
+                              if (state is CategoriesDataState) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  child: CategorySelect(
+                                    categories: state.categories,
+                                  ),
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          )
+                        : const SizedBox.shrink(),
                     InputBase(
                       form: form,
                       defaultValue: item?.emailAccount,
@@ -181,9 +203,16 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
                             title: item != null ? 'Actualizar' : 'Guardar',
                             onTap: () {
                               if (item != null) {
+                                form.control('category_id').value =
+                                    item.idCategory;
                                 bloc.add(UpdateAccountEvent(form, item.id));
                                 return;
                               }
+                              final state = bloc.state;
+                              form.control('category_id').value =
+                                  state is ChangeCategoryAccountState
+                                      ? state.idCategory
+                                      : null;
                               bloc.add(NewAccountEvent(form));
                             }),
                         Button(
@@ -200,5 +229,59 @@ class _FormInputsAccountState extends State<FormInputsAccount> {
                 );
               });
         });
+  }
+}
+
+class CategorySelect extends StatelessWidget {
+  final List<Category> categories;
+
+  const CategorySelect({
+    Key? key,
+    required this.categories,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AccountBloc, AccountState>(
+      builder: (context, state) {
+        // Estado actual seleccionado (ya sea desde bloc o prop inicial)
+        final selectedId =
+            state is ChangeCategoryAccountState ? state.idCategory : "";
+
+        final isSelected = categories
+            .map((cat) => cat.id == selectedId)
+            .toList(growable: false);
+
+        return ToggleButtons(
+          borderRadius: BorderRadius.circular(8),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          isSelected: isSelected,
+          onPressed: (index) {
+            context.read<AccountBloc>().add(
+                  ChangeCategoryAccountEvent(categories[index].id),
+                );
+          },
+          children: categories.map((category) {
+            final color = hexToColor(category.color ?? '#FFFFFF');
+            final selected = category.id == selectedId;
+
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              decoration: BoxDecoration(
+                color: color.withAlpha(selected ? 255 : 50),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              child: Image.network(
+                category.image!,
+                width: 45.w,
+                height: 45.h,
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 }

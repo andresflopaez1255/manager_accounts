@@ -11,21 +11,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 30, left: 8, right: 8),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [SubtitleHeader(
-              title: "Cuentas Registradas",
-              onPress: () {
-              Navigator.pushNamed(context, '/accountForm');
-            },
-            ), const ListAccounts()],
+            children: [
+              SubtitleHeader(
+                title: "Cuentas Registradas",
+                onPress: () {
+                  Navigator.pushNamed(context, '/accountForm');
+                },
+              ),
+              const ListAccounts()
+            ],
           ),
         ),
       ),
     );
   }
 }
-
