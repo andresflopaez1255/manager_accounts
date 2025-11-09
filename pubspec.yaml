@@ -50,6 +50,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_local_notifications: ^19.5.0
   url_launcher: ^6.3.2
+  whatsapp_unilink: ^2.1.0
  
  
 

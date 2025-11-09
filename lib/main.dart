@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -16,7 +19,7 @@ import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/utils/config/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -24,29 +27,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-    const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-
-  const InitializationSettings initializationSettings =
-      InitializationSettings(android: initializationSettingsAndroid);
-
-  await FirebaseNotificationRepository().flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-    onDidReceiveNotificationResponse: (NotificationResponse response) async {
-      if (response.actionId == 'whatsapp') {
-        final phone = response.payload ?? '';
-        debugPrint("tel: $phone");
-        if (phone.isNotEmpty) {
-          final url = Uri.parse('https://wa.me/+57$phone');
-          if (await canLaunchUrl(url)) {
-            await launchUrl(url, mode: LaunchMode.externalApplication);
-          }
-        }
-      }
-    },
-  );
-
 
   runApp(const AppState());
 }
@@ -62,7 +42,7 @@ class _AppStateState extends State<AppState> {
   @override
   void initState() {
     super.initState();
-     FirebaseNotificationRepository().initNotification();
+    FirebaseNotificationRepository().initNotification();
   }
 
   @override
@@ -88,7 +68,10 @@ class _AppStateState extends State<AppState> {
                 UsersBloc(repository: context.read<UsersRespositoryImpl>())),
         BlocProvider(
             create: (context) => SettingsBloc()..add(GetThemeStatus())),
-        BlocProvider(create: (context) => CategoriesBloc(categoriesRepository: context.read<CategoriesRepositoryImpl>())),
+        BlocProvider(
+            create: (context) => CategoriesBloc(
+                categoriesRepository:
+                    context.read<CategoriesRepositoryImpl>())),
       ], child: const MyApp()),
     );
   }

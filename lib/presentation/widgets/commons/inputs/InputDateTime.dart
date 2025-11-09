@@ -37,7 +37,7 @@ class _InputDateTimeState extends State<InputDateTime> {
   @override
   Widget build(BuildContext context) {
     // Configurar el formato de fecha en español
-    final dateFormat = DateFormat("dd/MM/yyyy", "es_ES");
+    final dateFormat = DateFormat("MM/dd/yyyy", "es_ES");
 
     return Padding(
       padding: widget.padding ?? const EdgeInsets.only(top: 8),
