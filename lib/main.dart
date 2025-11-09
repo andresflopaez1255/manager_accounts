@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
@@ -10,10 +11,12 @@ import 'package:manager_accounts/data/data_sources/local_datasouce/httpClient.da
 import 'package:manager_accounts/data/repositories_impl/accounts_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/categories_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/users_repository_impl.dart';
+import 'package:manager_accounts/domain/repository/firebase_notification_repository.dart';
 import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/utils/config/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,6 +24,30 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  const InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await FirebaseNotificationRepository().flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveNotificationResponse: (NotificationResponse response) async {
+      if (response.actionId == 'whatsapp') {
+        final phone = response.payload ?? '';
+        debugPrint("tel: $phone");
+        if (phone.isNotEmpty) {
+          final url = Uri.parse('https://wa.me/$phone');
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          }
+        }
+      }
+    },
+  );
+
+
   runApp(const AppState());
 }
 
@@ -35,7 +62,7 @@ class _AppStateState extends State<AppState> {
   @override
   void initState() {
     super.initState();
-    // FirebaseNotificationRepository().initNotification();
+     FirebaseNotificationRepository().initNotification();
   }
 
   @override
