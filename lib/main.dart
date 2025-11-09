@@ -38,7 +38,7 @@ void main() async {
         final phone = response.payload ?? '';
         debugPrint("tel: $phone");
         if (phone.isNotEmpty) {
-          final url = Uri.parse('https://wa.me/$phone');
+          final url = Uri.parse('https://wa.me/+57$phone');
           if (await canLaunchUrl(url)) {
             await launchUrl(url, mode: LaunchMode.externalApplication);
           }

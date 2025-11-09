@@ -36,7 +36,7 @@ class FirebaseNotificationRepository {
       notification?.title ?? 'Cuenta por vencer',
       notification?.body ?? 'Haz clic para contactar al cliente',
       platform,
-      payload: data['telefono'] ?? '', // número del cliente
+      payload: data['cellphone_user'] ?? '', // número del cliente
     ); 
   }
 
@@ -46,8 +46,7 @@ class FirebaseNotificationRepository {
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    FirebaseMessaging.onMessageOpenedApp
-        .listen(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessageOpenedApp();
   }
 }
 
