@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:manager_accounts/data/bloc/accounts/account_bloc.dart';
@@ -15,6 +15,7 @@ import 'package:manager_accounts/data/repositories_impl/accounts_repository_impl
 import 'package:manager_accounts/data/repositories_impl/categories_repository_impl.dart';
 import 'package:manager_accounts/data/repositories_impl/users_repository_impl.dart';
 import 'package:manager_accounts/domain/repository/firebase_notification_repository.dart';
+import 'package:manager_accounts/firebase_options.dart';
 import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/utils/config/routes.dart';
@@ -23,7 +24,9 @@ import 'package:manager_accounts/utils/config/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-
+ await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const AppState());
 }
 
