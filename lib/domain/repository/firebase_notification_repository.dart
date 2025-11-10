@@ -22,7 +22,7 @@ class FirebaseNotificationRepository {
   Future<void> initNotification() async {
     // 🔹 Solicitar permisos (iOS y Android 13+)
     await _firebaseMessaging.requestPermission();
-
+   await _firebaseMessaging.subscribeToTopic("expiraciones");
     // 🔹 Crear el canal para Android
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<

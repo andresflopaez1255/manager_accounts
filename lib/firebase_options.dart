@@ -45,7 +45,7 @@ class DefaultFirebaseOptions {
     appId: '1:274290548961:android:952d333f7f52cd13b217a0',
     messagingSenderId: '274290548961',
     projectId: 'accounts-manager-24563',
-    storageBucket: 'accounts-manager-24563.appspot.com',
+    storageBucket: 'accounts-manager-24563.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -53,7 +53,7 @@ class DefaultFirebaseOptions {
     appId: '1:274290548961:ios:8f933c4630e7a434b217a0',
     messagingSenderId: '274290548961',
     projectId: 'accounts-manager-24563',
-    storageBucket: 'accounts-manager-24563.appspot.com',
+    storageBucket: 'accounts-manager-24563.firebasestorage.app',
     iosBundleId: 'com.hefestsoft.managerAccounts',
   );
 
