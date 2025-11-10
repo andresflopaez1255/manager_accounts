@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,94 +9,96 @@ import 'package:url_launcher/url_launcher.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+const AndroidNotificationChannel expiracionesChannel = AndroidNotificationChannel(
+  'expiraciones_channel', // id
+  'Notificaciones de expiraciones', // nombre visible
+  description: 'Canal usado para notificar sobre cuentas próximas a vencer.',
+  importance: Importance.max,
+);
+
 class FirebaseNotificationRepository {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future<void> initNotification() async {
-    // 🔹 Solicita permisos (especialmente necesario en iOS)
+    // 🔹 Solicitar permisos (iOS y Android 13+)
     await _firebaseMessaging.requestPermission();
 
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    // 🔹 Crear el canal para Android
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(expiracionesChannel);
 
-    InitializationSettings initializationSettings =
-        const InitializationSettings(android: initializationSettingsAndroid);
+    // 🔹 Configurar inicialización local
+    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const settings = InitializationSettings(android: androidSettings);
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse response) async {
-      if (response.actionId == 'whatsapp') {
-        final data = jsonDecode(response.payload!);
-        final service = data['service'];
-        final cellphone = data['cellphone_user'];
-        final email = data["email"];
-        final message =
-            '🚨 ¡Atención! Tu servicio de *$service* vence *mañana* 😱\n\n'
-            '📧 Cuenta: $email\n\n'
-            '¡Renueva hoy y evita interrupciones! 💪\n\n'
-            '🛍️ Escríbenos para renovar al instante 🔁';
+    await flutterLocalNotificationsPlugin.initialize(
+      settings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        if (response.actionId == 'whatsapp') {
+          final data = jsonDecode(response.payload!);
+          final service = data['service'];
+          final cellphone = data['cellphone_user'];
+          final email = data['email'];
 
-        final link = Uri(
-          scheme: 'https',
-          host: 'wa.me',
-          path: cellphone,
-          queryParameters: {'text': message},
-        );
+          final message =
+              '🚨 ¡Atención! Tu servicio de *$service* vence *mañana* 😱\n\n'
+              '📧 Cuenta: $email\n\n'
+              '¡Renueva hoy y evita interrupciones! 💪\n\n'
+              '🛍️ Escríbenos para renovar al instante 🔁';
 
-        try {
-          if (Platform.isIOS) {
-            await launchUrl(link);
-          } else {
-            await launchUrl(link);
+          final link = Uri(
+            scheme: 'https',
+            host: 'wa.me',
+            path: cellphone,
+            queryParameters: {'text': message},
+          );
+
+          try {
+            await launchUrl(link, mode: LaunchMode.externalApplication);
+          } catch (e) {
+            debugPrint("Error al abrir WhatsApp: $e");
           }
-        } on Exception {
-          debugPrint("error..");
         }
-      }
-    });
+      },
+    );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      _showLocalNotification(message);
-    });
-
+    // 🔹 Listeners de Firebase
+    FirebaseMessaging.onMessage.listen(_showLocalNotification);
+    FirebaseMessaging.onMessageOpenedApp.listen(_showLocalNotification);
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      _showLocalNotification(message);
-    });
   }
 
   Future<void> _showLocalNotification(RemoteMessage message) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-      'expiraciones_channel',
-      'Notificaciones de expiraciones',
+    final androidDetails = AndroidNotificationDetails(
+      expiracionesChannel.id,
+      expiracionesChannel.name,
+      channelDescription: expiracionesChannel.description,
       importance: Importance.high,
       priority: Priority.high,
-      actions: [
+      actions: const [
         AndroidNotificationAction(
           'whatsapp',
           '💬 Contactar por WhatsApp',
           showsUserInterface: true,
-        )
+        ),
       ],
     );
 
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidDetails);
+    final notificationDetails = NotificationDetails(android: androidDetails);
 
-    final title = message.data['title'] ?? 'Cuenta por vencer';
-    final body = message.data['body'] ?? 'Haz clic para contactar al cliente';
     final data = message.data;
 
     await flutterLocalNotificationsPlugin.show(
       0,
-      title,
-      body,
+      data['title'] ?? 'Cuenta por vencer',
+      data['body'] ?? 'Haz clic para contactar al cliente',
       notificationDetails,
       payload: jsonEncode({
         'service': data["service"],
         'cellphone_user': data["cellphone_user"],
-        'email': data["email_account"]
+        'email': data["email_account"],
       }),
     );
   }
@@ -105,7 +106,13 @@ class FirebaseNotificationRepository {
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // 🔹 Inicializa Firebase en segundo plano
   await Firebase.initializeApp();
 
-  FirebaseNotificationRepository()._showLocalNotification(message);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(expiracionesChannel);
+
+  await FirebaseNotificationRepository()._showLocalNotification(message);
 }

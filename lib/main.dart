@@ -18,15 +18,11 @@ import 'package:manager_accounts/domain/repository/firebase_notification_reposit
 import 'package:manager_accounts/presentation/screens/screens.dart';
 import 'package:manager_accounts/utils/config/AppTheme.dart';
 import 'package:manager_accounts/utils/config/routes.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  
 
   runApp(const AppState());
 }
