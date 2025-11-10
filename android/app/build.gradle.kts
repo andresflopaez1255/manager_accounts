@@ -42,11 +42,25 @@ flutter {
 }
 
 dependencies {
+    // Firebase core
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // 🔔 Firebase Cloud Messaging (solo uno)
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // AndroidX
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.window:window:1.0.0")
     implementation("androidx.window:window-java:1.0.0")
-    
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
+    // Para Local Notifications si usas flutter_local_notifications
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
+
+    // Desugaring (para compatibilidad con nuevas APIs)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
 
 
